@@ -1,0 +1,41 @@
+****************************************************************************************
+   This is your configuration file.
+    -Don't change this file's name
+    -Place this file in the same folder as the program 
+    -Add "***SILENT***" to stop the Read in messages
+    -Add "***REPORT*** youroutputfile.txt" to generate Jira Ticket format
+            
+    -values BELOW the "***START***" flag are what the parser looks for.  If it finds that value, both that value and the next
+        token are appended to the created outfile. (Small exception for some values that are sentences)
+****************************************************************************************
+
+
+
+"inpkts_total":
+"outpkts_total":
+
+//***REPORT*** reportTest.txt
+***SILENT***
+***START***
+
+"srcport":
+"srcip_username":
+"description":
+"dns_domain":
+"outbytes_total":
+"tenant_name":
+"dstip":
+"appid_name":
+"dstip_host":
+"dstport":
+//"signature":
+//"inbytes_total":
+"srcip":
+"srcip_host":
+//"timestamp":
+//"file_name":
+//"file_path":
+"account_name":
+"duration":
+
+
