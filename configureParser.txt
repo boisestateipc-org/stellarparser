@@ -3,16 +3,18 @@
     -Don't change this file's name
     -Place this file in the same folder as the program 
     -Add "***SILENT***" to stop the Read in messages
-    -Add "***REPORT*** youroutputfile.txt" to generate Jira Ticket format
+    -Add "***REPORT*** youroutputfile.txt" to generate Jira Ticket format --this is not functional yet
             
     -values BELOW the "***START***" flag are what the parser looks for.  If it finds that value, both that value and the next
-        token are appended to the created outfile. (Small exception for some values that are sentences)
+        token are appended to the created outfile.
+    -The only value you currently can NOT search for effectively is the very last key field in your copied json text.  As far as I can tell
+        this would be an extremely niche use case, so not worth the extra code 
+    -Searching for a key field that is an array (it has values contained in brackets after it) will 
 ****************************************************************************************
 
 
 
-"inpkts_total":
-"outpkts_total":
+
 
 //***REPORT*** reportTest.txt
 ***SILENT***
@@ -22,13 +24,14 @@
 "srcip_username":
 "description":
 "dns_domain":
-"outbytes_total":
+//"outbytes_total":
 "tenant_name":
 "dstip":
 "appid_name":
 "dstip_host":
+"display_name":
 "dstport":
-//"signature":
+"signature":
 //"inbytes_total":
 "srcip":
 "srcip_host":
@@ -37,5 +40,7 @@
 //"file_path":
 "account_name":
 "duration":
-
-
+"inpkts_total":
+"outpkts_total":
+//"domain_list":
+"detected_fields":

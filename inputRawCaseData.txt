@@ -1,0 +1,718 @@
+{
+	"actual": 2,
+	"advanced": 2,
+	"aella_tuples": "10.106.9.163.10.184.5.196.53.32",
+	"appid": 32,
+	"appid_family": "Network",
+	"appid_name": "dns",
+	"appid_stdport": "yes",
+	"cust_file": 0,
+	"detected_fields": [
+		"srcip",
+		"dstip",
+		"fileid",
+		"ids.signature"
+	],
+	"detected_values": [
+		"10.106.9.163",
+		"10.184.5.196",
+		"",
+		"DNS Query for .su TLD (Soviet Union) Often Malware Related"
+	],
+	"direction": "EveTxRx",
+	"domain_list": [
+		"strategic-culture.su"
+	],
+	"domain_reputation": "Good",
+	"dscp_name": "Best Effort",
+	"dst_tuples": "null.0.10.184.5.196",
+	"dstip": "10.184.5.196",
+	"dstip_assetid": "8d8a3ee2-bf8b-11ed-bf5d-ea16f034e74d",
+	"dstip_geo": {
+		"city": "Lewiston",
+		"countryCode": "US",
+		"countryName": "United States",
+		"latitude": 46.3646,
+		"longitude": -116.8609,
+		"region": "Idaho"
+	},
+	"dstip_geo_point": "46.3646,-116.8609",
+	"dstip_host": "10.184.5.196",
+	"dstip_reputation": "Good",
+	"dstip_type": "private",
+	"dstip_version": "ipv4",
+	"dstmac": "00:50:56:95:df:2c",
+	"dstport": 53,
+	"duration": 144583,
+	"end_reason": 1,
+	"engid": "ad4cb04f13b84adc",
+	"engid_gateway": "74.118.22.223",
+	"engid_name": "LCState-Photon300",
+	"event_category": "killchain",
+	"event_name": "malware_activity",
+	"event_score": 57,
+	"event_source": "ids",
+	"event_status": "New",
+	"event_type": "delivery",
+	"fidelity": 75,
+	"file_extract_timestamp": 1712952613008,
+	"file_name": "",
+	"file_path": "",
+	"fileid": "",
+	"flow_score": 98,
+	"handler": "ids-event",
+	"ids": {
+		"action": "allowed",
+		"category": "Potentially Bad Traffic",
+		"created_ts": "2012-01-31T00:00:00Z",
+		"gid": 1,
+		"metadata": {
+			"created_at": [
+				"2012_01_31"
+			],
+			"updated_at": [
+				"2017_11_27"
+			]
+		},
+		"payload_details": {
+			"app_proto": "dns",
+			"dns": {
+				"query": [
+					{
+						"id": 8814,
+						"rrname": "strategic-culture.su",
+						"rrtype": "A",
+						"tx_id": 2,
+						"type": "query"
+					}
+				]
+			},
+			"flow": {
+				"bytes_toclient": 71,
+				"bytes_toserver": 151,
+				"pkts_toclient": 1,
+				"pkts_toserver": 2,
+				"start": "2024-04-12T20:07:48.420717+0000"
+			}
+		},
+		"rev": 2,
+		"rule": {
+			"created": "2012_01_31",
+			"rule": "\"alert dns $HOME_NET any -> any any (msg:\\\"ET DNS Query for .su TLD (Soviet Union) Often Malware Related\\\"; dns_query; content:\\\".su\\\"; nocase; isdataat:!1,relative; reference:url,www.abuse.ch/?p=3581; classtype:bad-unknown; sid:2014169; rev:2; metadata:created_at 2012_01_31, updated_at 2017_11_27;)\\n\"",
+			"updated": "2017_11_27"
+		},
+		"severity": "high",
+		"signature": "DNS Query for .su TLD (Soviet Union) Often Malware Related",
+		"signature_id": 2014169
+	},
+	"inbytes_delta": 0,
+	"inbytes_total": 71,
+	"inpkts_delta": 0,
+	"inpkts_total": 1,
+	"is_dga": "no",
+	"lateral": true,
+	"locid": "unassigned location",
+	"md5": "",
+	"metadata": {
+		"_whitelist": 0,
+		"is_tunneling": 8,
+		"request": {
+			"effective_tld": "strategic-culture.su",
+			"flags": 256,
+			"message_type": "QUERY",
+			"query": "strategic-culture.su",
+			"query_type": "A",
+			"transaction_id": 8814
+		},
+		"transaction_id": 8814
+	},
+	"msg_class": "ids_event",
+	"msg_origin": {
+		"processor": {
+			"type": "maltrace"
+		},
+		"source": "security_sensor"
+	},
+	"msgtype": 4,
+	"msgtype_name": "start",
+	"netid": 0,
+	"netid_name": "vlan0",
+	"new_file": 0,
+	"obsid": 171771137,
+	"org_id": "default-organization",
+	"org_name": "default-organization",
+	"orig_id": "5lzu044BoYE-lgj6uwlz",
+	"orig_index": "aella-maltrace-1712448218001-longterm",
+	"outbytes_delta": 0,
+	"outbytes_total": 151,
+	"outpkts_delta": 0,
+	"outpkts_total": 2,
+	"port_name": "ethernet3",
+	"processing_time": 30,
+	"proto": 17,
+	"proto_name": "udp",
+	"receive_time": 1712952614698,
+	"response_time": 30,
+	"score": 60,
+	"severity": 50,
+	"sha256": "",
+	"src_tuples": "null.0.10.106.9.163",
+	"srcip": "10.106.9.163",
+	"srcip_assetid": "578e7280-f866-11ee-a4b6-beffbc6e03cc",
+	"srcip_geo": {
+		"city": "Lewiston",
+		"countryCode": "US",
+		"countryName": "United States",
+		"latitude": 46.3646,
+		"longitude": -116.8609,
+		"region": "Idaho"
+	},
+	"srcip_geo_point": "46.3646,-116.8609",
+	"srcip_host": "10.106.9.163",
+	"srcip_reputation": "Good",
+	"srcip_sig_id": "10.106.9.163.2014169.0",
+	"srcip_type": "private",
+	"srcip_version": "ipv4",
+	"srcmac": "a4:4c:11:e5:3f:00",
+	"srcport": 55676,
+	"state": "Expired",
+	"stellar": {
+		"alert_time": 1712952992598,
+		"detection_time": 370798,
+		"status": "New"
+	},
+	"stellar_da_input": 1195,
+	"stellar_index_id": "aella-maltrace-2024.04.12-a3d2f790d48045b9aef3f4ab7fdde8af",
+	"stellar_uuid": "4958bb8c-e1a4-41f9-b502-998d209b2d091712952614698",
+	"summary_end": 1712952613415,
+	"summary_start": 1712952611914,
+	"tenant_name": "Lewis-Clark State College",
+	"tenantid": "a3d2f790d48045b9aef3f4ab7fdde8af",
+	"threat_score": 0,
+	"timestamp": 1712952613415,
+	"tos": 0,
+	"totalbytes": 0,
+	"totalpackets": 0,
+	"vlan": 0,
+	"write_by": "sef",
+	"write_time": 1712952992640,
+	"xdr_event": {
+		"description": "Network IDS in internal traffic discovered malware (uncategorized malicious activities) between \"IP/name: 10.106.9.163\" (private) and \"IP/name: 10.184.5.196\" (private) that matches IDS signature \"DNS Query for .su TLD (Soviet Union) Often Malware Related\" with IDS severity \"high\".",
+		"display_name": "Internal Other Malware",
+		"framework_version": "v8",
+		"name": "internal_malware_activity",
+		"scope": "Internal",
+		"tactic": {
+			"id": "XTA0006",
+			"name": "XDR Malware"
+		},
+		"tags": [
+			"Internal",
+			"Malware"
+		],
+		"technique": {
+			"id": "XT6001",
+			"name": "XDR Miscellaneous Malware"
+		},
+		"xdr_killchain_stage": "Propagation",
+		"xdr_killchain_version": "v1"
+	},
+	"_index": "aella-ser-1712448229590-longterm",
+	"isAlert": true,
+	"_id": "1712952992640581b0effd40f7a04862959fbe45fde27f86",
+	"_type": "amsg",
+	"req_domain_name": "strategic-culture.su"
+}{
+	"actual": 1,
+	"advanced": 2,
+	"aella_tuples": "10.107.8.203.10.184.5.196.53.32",
+	"appid": 32,
+	"appid_family": "Network",
+	"appid_name": "dns",
+	"appid_stdport": "yes",
+	"cust_file": 0,
+	"detected_fields": [
+		"srcip",
+		"dstip",
+		"fileid",
+		"ids.signature"
+	],
+	"detected_values": [
+		"10.107.8.203",
+		"10.184.5.196",
+		"",
+		"MALWARE DNS Query to Neoreklami Domain (testupdate .info)"
+	],
+	"direction": "EveTxRx",
+	"domain_list": [
+		"www.testupdate.info"
+	],
+	"domain_reputation": "Good",
+	"dscp_name": "Best Effort",
+	"dst_tuples": "null.0.10.184.5.196",
+	"dstip": "10.184.5.196",
+	"dstip_assetid": "8d8a3ee2-bf8b-11ed-bf5d-ea16f034e74d",
+	"dstip_geo": {
+		"city": "Lewiston",
+		"countryCode": "US",
+		"countryName": "United States",
+		"latitude": 46.3646,
+		"longitude": -116.8609,
+		"region": "Idaho"
+	},
+	"dstip_geo_point": "46.3646,-116.8609",
+	"dstip_host": "10.184.5.196",
+	"dstip_reputation": "Good",
+	"dstip_type": "private",
+	"dstip_version": "ipv4",
+	"dstmac": "00:50:56:95:df:2c",
+	"dstport": 53,
+	"duration": 505,
+	"end_reason": 1,
+	"engid": "ad4cb04f13b84adc",
+	"engid_gateway": "74.118.22.223",
+	"engid_name": "LCState-Photon300",
+	"event_category": "killchain",
+	"event_name": "malware_activity",
+	"event_score": 57,
+	"event_source": "ids",
+	"event_status": "New",
+	"event_type": "delivery",
+	"fidelity": 75,
+	"file_extract_timestamp": 1712959252146,
+	"file_name": "",
+	"file_path": "",
+	"fileid": "",
+	"flow_score": 98,
+	"handler": "ids-event",
+	"ids": {
+		"action": "allowed",
+		"category": "A Network Trojan was detected",
+		"created_ts": "2023-05-15T00:00:00Z",
+		"gid": 1,
+		"metadata": {
+			"attack_target": [
+				"Client_Endpoint"
+			],
+			"created_at": [
+				"2023_05_15"
+			],
+			"deployment": [
+				"Perimeter"
+			],
+			"former_category": [
+				"ADWARE_PUP"
+			],
+			"malware_family": [
+				"PUP"
+			],
+			"mitre_tactic_id": [
+				"TA0040"
+			],
+			"mitre_tactic_name": [
+				"Impact"
+			],
+			"mitre_technique_id": [
+				"T1496"
+			],
+			"mitre_technique_name": [
+				"Resource_Hijacking"
+			],
+			"reviewed_at": [
+				"2024_01_02"
+			],
+			"updated_at": [
+				"2023_05_15"
+			]
+		},
+		"payload_details": {
+			"app_proto": "dns",
+			"dns": {
+				"query": [
+					{
+						"id": 54945,
+						"rrname": "www.testupdate.info",
+						"rrtype": "A",
+						"tx_id": 0,
+						"type": "query"
+					}
+				]
+			},
+			"flow": {
+				"bytes_toclient": 0,
+				"bytes_toserver": 79,
+				"pkts_toclient": 0,
+				"pkts_toserver": 1,
+				"start": "2024-04-12T22:00:52.146485+0000"
+			}
+		},
+		"rev": 1,
+		"rule": {
+			"created": "2023_05_15",
+			"rule": "\"alert dns $HOME_NET any -> any any (msg:\\\"ET MALWARE DNS Query to Neoreklami Domain (testupdate .info)\\\"; dns_query; content:\\\"testupdate.info\\\"; nocase; isdataat:!1,relative; pcre:\\\"/(?:^|\\\\.)testupdate\\\\.info$/\\\"; reference:url,twitter.com/Gi7w0rm/status/1658060675770351616; classtype:trojan-activity; sid:2045705; rev:1; metadata:attack_target Client_Endpoint, created_at 2023_05_15, deployment Perimeter, former_category ADWARE_PUP, malware_family PUP, updated_at 2023_05_15, reviewed_at 2024_01_02, mitre_tactic_id TA0040, mitre_tactic_name Impact, mitre_technique_id T1496, mitre_technique_name Resource_Hijacking;)\\n\"",
+			"updated": "2023_05_15"
+		},
+		"severity": "critical",
+		"signature": "MALWARE DNS Query to Neoreklami Domain (testupdate .info)",
+		"signature_id": 2045705
+	},
+	"inbytes_delta": 146,
+	"inbytes_total": 0,
+	"inpkts_delta": 1,
+	"inpkts_total": 0,
+	"is_dga": "no",
+	"lateral": true,
+	"locid": "unassigned location",
+	"md5": "",
+	"metadata": {
+		"_whitelist": 0,
+		"is_tunneling": 8,
+		"request": {
+			"effective_tld": "testupdate.info",
+			"flags": 256,
+			"message_type": "QUERY",
+			"query": "www.testupdate.info",
+			"query_type": "A",
+			"transaction_id": 54945
+		},
+		"response": {
+			"answers": [
+				{
+					"host": "env-3936544.jcloud.kz",
+					"host_type": "CNAME",
+					"name": "www.testupdate.info",
+					"section_type": "Answer",
+					"ttl": 3600
+				},
+				{
+					"host_addr": "185.22.66.15",
+					"host_type": "A",
+					"name": "env-3936544.jcloud.kz",
+					"section_type": "Answer",
+					"ttl": 5
+				},
+				{
+					"host_addr": "185.22.66.16",
+					"host_type": "A",
+					"name": "env-3936544.jcloud.kz",
+					"section_type": "Answer",
+					"ttl": 5
+				}
+			],
+			"domain_creation": "2015-08-04T09:23:39Z",
+			"effective_tld": "testupdate.info",
+			"flags": 33152,
+			"message_type": "RESPONSE",
+			"processing_time": 504,
+			"query": "www.testupdate.info",
+			"query_type": "A",
+			"reply_code": "No Error",
+			"resolved_ips": [
+				"185.22.66.15",
+				"185.22.66.16"
+			],
+			"response_time": 504,
+			"transaction_id": 54945
+		},
+		"transaction_id": 54945
+	},
+	"msg_class": "ids_event",
+	"msg_origin": {
+		"processor": {
+			"type": "maltrace"
+		},
+		"source": "security_sensor"
+	},
+	"msgtype": 4,
+	"msgtype_name": "start",
+	"netid": 0,
+	"netid_name": "vlan0",
+	"new_file": 0,
+	"obsid": 171771137,
+	"org_id": "default-organization",
+	"org_name": "default-organization",
+	"orig_id": "8RZU1I4BQnIMslLECV7Q",
+	"orig_index": "aella-maltrace-1712448218001-longterm",
+	"outbytes_delta": 79,
+	"outbytes_total": 79,
+	"outpkts_delta": 1,
+	"outpkts_total": 1,
+	"port_name": "ethernet3",
+	"processing_time": 504,
+	"proto": 17,
+	"proto_name": "udp",
+	"receive_time": 1712959253207,
+	"response_time": 504,
+	"score": 90,
+	"severity": 50,
+	"sha256": "",
+	"src_tuples": "null.0.10.107.8.203",
+	"srcip": "10.107.8.203",
+	"srcip_assetid": "9eb3bbfc-0942-11ee-ac17-daa60e9d7c19",
+	"srcip_geo": {
+		"city": "Lewiston",
+		"countryCode": "US",
+		"countryName": "United States",
+		"latitude": 46.3646,
+		"longitude": -116.8609,
+		"region": "Idaho"
+	},
+	"srcip_geo_point": "46.3646,-116.8609",
+	"srcip_host": "10.107.8.203",
+	"srcip_reputation": "Good",
+	"srcip_sig_id": "10.107.8.203.2045705.0",
+	"srcip_type": "private",
+	"srcip_version": "ipv4",
+	"srcmac": "a4:4c:11:e5:3f:00",
+	"srcport": 62376,
+	"state": "Expired",
+	"stellar": {
+		"alert_time": 1712959592465,
+		"detection_time": 331386,
+		"status": "New"
+	},
+	"stellar_da_input": 1487,
+	"stellar_index_id": "aella-maltrace-2024.04.12-a3d2f790d48045b9aef3f4ab7fdde8af",
+	"stellar_uuid": "d6aa57a8-0b73-4353-82d9-3d8da6eebb531712959253207",
+	"summary_end": 1712959252239,
+	"summary_start": 1712959252239,
+	"tenant_name": "Lewis-Clark State College",
+	"tenantid": "a3d2f790d48045b9aef3f4ab7fdde8af",
+	"threat_score": 0,
+	"timestamp": 1712959252239,
+	"tos": 0,
+	"totalbytes": 225,
+	"totalpackets": 2,
+	"vlan": 0,
+	"write_by": "sef",
+	"write_time": 1712959592523,
+	"xdr_event": {
+		"description": "Network IDS in internal traffic discovered malware (uncategorized malicious activities) between \"IP/name: 10.107.8.203\" (private) and \"IP/name: 10.184.5.196\" (private) that matches IDS signature \"MALWARE DNS Query to Neoreklami Domain (testupdate .info)\" with IDS severity \"critical\".",
+		"display_name": "Internal Other Malware",
+		"framework_version": "v8",
+		"name": "internal_malware_activity",
+		"scope": "Internal",
+		"tactic": {
+			"id": "XTA0006",
+			"name": "XDR Malware"
+		},
+		"tags": [
+			"Internal",
+			"Malware"
+		],
+		"technique": {
+			"id": "XT6001",
+			"name": "XDR Miscellaneous Malware"
+		},
+		"xdr_killchain_stage": "Propagation",
+		"xdr_killchain_version": "v1"
+	},
+	"_index": "aella-ser-1712448229590-longterm",
+	"isAlert": true,
+	"_id": "1712959592523662cc4005a8d8cb4469818bc82775a159c2",
+	"_type": "amsg",
+	"req_domain_name": "testupdate.info"
+}{
+	"actual": 1,
+	"advanced": 2,
+	"aella_tuples": "10.107.16.12.10.184.5.196.53.32",
+	"appid": 32,
+	"appid_family": "Network",
+	"appid_name": "dns",
+	"appid_stdport": "yes",
+	"detected_fields": [
+		"srcip",
+		"metadata.request.effective_tld",
+		"metadata.response.resolved_ips"
+	],
+	"detected_values": [
+		"10.107.16.12",
+		"zbfemgimtyejpm.com",
+		"216.21.13.14"
+	],
+	"dns_domain": "zbfemgimtyejpm.com",
+	"domain_list": [
+		"zbfemgimtyejpm.com"
+	],
+	"domain_reputation": "Good",
+	"dscp_name": "Best Effort",
+	"dst_tuples": "00:50:56:95:df:2c.0.10.184.5.196",
+	"dstip": "10.184.5.196",
+	"dstip_assetid": "8d8a3ee2-bf8b-11ed-bf5d-ea16f034e74d",
+	"dstip_geo": {
+		"city": "Lewiston",
+		"countryCode": "US",
+		"countryName": "United States",
+		"latitude": 46.3646,
+		"longitude": -116.8609,
+		"region": "Idaho"
+	},
+	"dstip_geo_point": "46.3646,-116.8609",
+	"dstip_host": "10.184.5.196",
+	"dstip_reputation": "Good",
+	"dstip_type": "private",
+	"dstip_version": "ipv4",
+	"dstmac": "00:50:56:95:df:2c",
+	"dstport": 53,
+	"duration": 39,
+	"end_reason": 1,
+	"engid": "ad4cb04f13b84adc",
+	"engid_gateway": "74.118.22.223",
+	"engid_name": "LCState-Photon300",
+	"event_category": "killchain",
+	"event_name": "dga_resolvable",
+	"event_score": 79,
+	"event_source": "ml",
+	"event_status": "New",
+	"event_type": "cnc",
+	"fidelity": 90,
+	"flow_score": 98,
+	"inbytes_delta": 110,
+	"inbytes_total": 110,
+	"inpkts_delta": 1,
+	"is_dga": "yes_resolvable",
+	"locid": "unassigned location",
+	"lstm_prob": 99.99,
+	"metadata": {
+		"_whitelist": 0,
+		"is_tunneling": 8,
+		"request": {
+			"effective_tld": "zbfemgimtyejpm.com",
+			"flags": 256,
+			"message_type": "QUERY",
+			"query": "zbfemgimtyejpm.com",
+			"query_type": "A",
+			"transaction_id": 56433
+		},
+		"response": {
+			"answers": [
+				{
+					"host_addr": "216.21.13.14",
+					"host_type": "A",
+					"name": "zbfemgimtyejpm.com",
+					"section_type": "Answer",
+					"ttl": 0
+				},
+				{
+					"host_addr": "216.21.13.15",
+					"host_type": "A",
+					"name": "zbfemgimtyejpm.com",
+					"section_type": "Answer",
+					"ttl": 0
+				}
+			],
+			"domain_creation": "2024-04-07T19:45:47Z",
+			"effective_tld": "zbfemgimtyejpm.com",
+			"flags": 33152,
+			"message_type": "RESPONSE",
+			"processing_time": 39,
+			"query": "zbfemgimtyejpm.com",
+			"query_type": "A",
+			"reply_code": "No Error",
+			"resolved_ips": [
+				"216.21.13.14",
+				"216.21.13.15"
+			],
+			"response_time": 39,
+			"transaction_id": 56433
+		},
+		"transaction_id": 56433
+	},
+	"msg_class": "interflow_traffic",
+	"msg_origin": {
+		"category": "traffic",
+		"processor": {
+			"type": "aella_flow"
+		},
+		"source": "security_sensor"
+	},
+	"msgtype": 4,
+	"msgtype_name": "startend",
+	"netid": 0,
+	"netid_name": "vlan0",
+	"obsid": 171771137,
+	"org_id": "default-organization",
+	"org_name": "default-organization",
+	"orig_id": "Qp-21I4BQnIMslLEquot",
+	"orig_index": "aella-adr-1712707308474-longterm",
+	"outbytes_delta": 78,
+	"outbytes_total": 78,
+	"outpkts_delta": 1,
+	"port_name": "ethernet3",
+	"processing_time": 39,
+	"proto": 17,
+	"proto_name": "udp",
+	"receive_time": 1712965718883,
+	"response_time": 39,
+	"severity": 75,
+	"src_tuples": "a4:4c:11:e5:3f:00.0.10.107.16.12",
+	"srcip": "10.107.16.12",
+	"srcip_assetid": "fc3266f8-bf8b-11ed-8c65-ea16f034e74d",
+	"srcip_geo": {
+		"city": "Lewiston",
+		"countryCode": "US",
+		"countryName": "United States",
+		"latitude": 46.3646,
+		"longitude": -116.8609,
+		"region": "Idaho"
+	},
+	"srcip_geo_point": "46.3646,-116.8609",
+	"srcip_host": "10.107.16.12",
+	"srcip_reputation": "Good",
+	"srcip_type": "private",
+	"srcip_version": "ipv4",
+	"srcmac": "a4:4c:11:e5:3f:00",
+	"srcport": 53157,
+	"state": "Expired",
+	"stellar": {
+		"alert_time": 1712966497112,
+		"detection_time": 776393,
+		"status": "New"
+	},
+	"stellar_da_input": 1291,
+	"stellar_index_id": "aella-adr-2024.04.12-a3d2f790d48045b9aef3f4ab7fdde8af",
+	"stellar_slowpath": 1,
+	"stellar_uuid": "facb3f85-a768-4bb7-85bb-aa02dbae8c3617129657188830",
+	"summary_end": 1712965537931,
+	"summary_start": 1712965537931,
+	"tenant_name": "Lewis-Clark State College",
+	"tenantid": "a3d2f790d48045b9aef3f4ab7fdde8af",
+	"threat_score": 0,
+	"timestamp": 1712965537931,
+	"tos": 0,
+	"totalbytes": 188,
+	"totalpackets": 2,
+	"vlan": 0,
+	"write_by": "sef",
+	"write_time": 1712966497135,
+	"xdr_event": {
+		"description": "A host (\"IP/name: 10.107.16.12\") was observed using a potential DGA with the target domain zbfemgimtyejpm.com. If the target domain is malicious, the host might be compromised.",
+		"display_name": "DGA",
+		"framework_version": "v8",
+		"name": "dga_resolvable",
+		"scope": "",
+		"subtechnique": {
+			"id": "",
+			"name": "Domain Generation Algorithms"
+		},
+		"tactic": {
+			"id": "TA0011",
+			"name": "Command and Control"
+		},
+		"tags": [
+			"Network Traffic Analysis"
+		],
+		"technique": {
+			"id": "T1568",
+			"name": "Dynamic Resolution"
+		},
+		"xdr_killchain_stage": "Persistent Foothold",
+		"xdr_killchain_version": "v1"
+	},
+	"xgb_prob": 99.84,
+	"_index": "aella-ser-1712448229590-longterm",
+	"isAlert": true,
+	"_id": "1712966497135534dce3f85dce934e8a88bf999c9eb731e7",
+	"_type": "amsg",
+	"req_domain_name": "zbfemgimtyejpm.com"
+}
