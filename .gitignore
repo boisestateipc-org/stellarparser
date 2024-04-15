@@ -1,4 +1,5 @@
 .vscode/
 inputRawCaseData.txt
-parserOut1.txt
+inputRawCaseData1.txt
+parserOut.txt
 a.exe

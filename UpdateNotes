@@ -29,24 +29,31 @@ Where it's going
     -Fixed mild bug involving skipping over a token when using the getline
     -Added parsing rule for '[' (bracketed list).
     
+15APR2024
+    -Added "Brace" functinality.  Any given parameter that "opens" into a structure will grab everything until the end of that structure's level
+    -Working on method to seperate alerts that is not field dependant EG (if amsg then new alert).  Surprisingly difficult.
+       -Tried this for a hot minute and ended up going back to "amsg" being the end alert flag.  
+        -Sometimes there's one alert ofter that, but that's pretty niche.  For now, I'll just assume it always has that flag
+        -Largely failed due to disparities between alerts and desired fields causing disparities between the indices
+    -Believe amsg will work as a flag between alerts, so I'm going to press forward and remove it from the to do list
+
 Next 50 meter target
-    -Add a less volatile Alert Seperation handler
-    -Currently it's 'amsg', 
-    -change it to check if the current  match is at a lesser index than the last match
-      -This should trigger at the very beginning, I think that will make it more consistent for ticket generation
+   --Make it spit out a basic format for ticket
+     -no markdown
+     -no field data yet
 
 
     /////////NOTES/////////////
    
+          --Output is pretty consistent so it might be time to start on ticket formation.
           --Learn that markdown and compile good examples of Jira tickets
        
-           --Find fringe cases for adding newline at the end of the json copied files
            --First make a jira ticket output.
            --Learn Atlassian Markdown  for output
-           --Auto connect to VirusTotal API? Could be very ambitious
-           --Need a better way to put paragraph breaks between copied alerts. Currently using amsg as a flag, but that doesn't always work
-                ***Best Idea So Far: It'll need a counter or something that tracks the if the matched token is at an earlier index than the last found token
 
+
+           --Auto connect to VirusTotal API? Could be very ambitious
 
            --Need to find a way to spit out top level domain query without reduncies
-                ***Can create a boolean found value, but that can get tricky later, keeping track of it is a pain
+             -Meh
+                ***Can create a boolean found value, but that can get tricky later, keeping track of it is a pain 

@@ -12,35 +12,42 @@
     -Searching for a key field that is an array (it has values contained in brackets after it) will 
 ****************************************************************************************
 
+PLACE UNUSED FIELDS HERE 
 
-
-
-
-//***REPORT*** reportTest.txt
-***SILENT***
-***START***
-
-"srcport":
-"srcip_username":
-"description":
-"dns_domain":
-//"outbytes_total":
-"tenant_name":
-"dstip":
-"appid_name":
-"dstip_host":
-"display_name":
-"dstport":
-"signature":
+//"signature":
 //"inbytes_total":
-"srcip":
-"srcip_host":
+//"srcip":
+//"srcip_host":
 //"timestamp":
 //"file_name":
 //"file_path":
-"account_name":
-"duration":
-"inpkts_total":
-"outpkts_total":
+//"account_name":
+//"duration":
+//"inpkts_total":
+//"outpkts_total":
 //"domain_list":
-"detected_fields":
+//"detected_fields":
+
+//"display_name":
+//"srcip_username":
+//"dns_domain":
+//"tenant_name":
+//"appid_name":
+//"xdr_event":
+
+//***REPORT*** reportTest.txt 
+***SILENT***
+***START***
+
+"srcport": 
+"description":
+"outbytes_total":
+"dstip":
+"dstip_host":
+"dstport":
+"tags":
+"alert_time":
+"detected_values":
+"tactic":
+"domain_reputation":
+"technique":

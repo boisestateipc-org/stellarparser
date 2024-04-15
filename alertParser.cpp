@@ -14,7 +14,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-
+#include <string.h>
 
 using namespace std;
 
@@ -22,6 +22,8 @@ int main(int argc, char* argv[]){
         //general variables
         int currentMatchIndex{};
         int lastMatchIndex{};
+        int frontBraceCount{};
+        int backBraceCount{};
 
 
         //configure file variables
@@ -37,6 +39,7 @@ int main(int argc, char* argv[]){
     
        //i and o stream
     string buffer;
+    string  tempBuff;
     ifstream inFile(argv[1]); // second arg is inFile
     ofstream outFile(argv[2]); // third arg is outFile
     ofstream reportOutfile;
@@ -44,6 +47,7 @@ int main(int argc, char* argv[]){
 
        //Report related variables
     string reportFileName;
+
 
         //config file error handling
         if(configureFile.is_open()){
@@ -89,14 +93,29 @@ int main(int argc, char* argv[]){
         cout << endl; // Just for my sanity
 
         while(inFile >> buffer){
-            if(buffer == "\"amsg\"" || buffer =="\"amsg\","){outFile << "\n\n";} //In most cases this will seperate alerts, i know there's at least one other option but can't find it
-            //I don't like using this value as a flag to seperate alerts, it seems consistent but could be volatile in the future
+            if(buffer == "\"amsg\"" || buffer =="\"amsg\","){
+                outFile << "***ENDOFALERT***" << "\n\n";
+                
+                } //In most cases this will seperate alerts, i know there's at least one other option but can't find it
+            //I don't like using this value as a flag to seperate alerts,but it seems consistent
+             
+             /* if(lastMatchIndex > currentMatchIndex){
+                outFile << "***ENDOFALERT***" << "\n\n"; // this could be an issue for parsing later
+                lastMatchIndex = -1;
+                //
+            }  
+            */   
+
+
 
             for(int i = 0; i < checkList.size();i++){
                
                 if(buffer == checkList[i]){ //  1) got a match from checklist
                     //this is where the index checking for alert seperation will go
-
+                  /*  lastMatchIndex = currentMatchIndex;
+                    currentMatchIndex = i;*/
+                    //This didn't work, I believe due to the difference in alerts it was possible to cycle completely through an alert
+                        // and still end up with an index value lower than your first hit in the next alert. User could also cause errors.
 
                     outFile << buffer; // push the matched token
                     inFile >> buffer; // get our next token
@@ -114,6 +133,27 @@ int main(int argc, char* argv[]){
                             outFile << buffer; // this adds the comma in case I want to csv the file later
                             inFile >> buffer; 
                         }
+
+                        //appends getline to buffer until and even amount of forward and backward braces are found.
+                        else if(buffer == "{"){     
+                            frontBraceCount = 1;
+                            backBraceCount = 0;
+
+                            while(frontBraceCount != backBraceCount){
+                                getline(inFile, tempBuff);
+                                buffer += "\n"; 
+                                buffer += tempBuff;
+                                    if(tempBuff.find('{') != string::npos){ // { found
+                                        frontBraceCount++; 
+                                    }
+                                    else if(tempBuff.find('}') != string::npos){ // } found
+                                       backBraceCount++; 
+                                    }
+                           } 
+                            outFile << buffer; 
+                            inFile >> buffer; 
+                        } //end brace logic
+
                         else if(buffer.back() != ',' ){ // 2) 
                             //inFile >> buffer;
                             outFile << buffer;
@@ -129,6 +169,8 @@ int main(int argc, char* argv[]){
 
                                         }; //End of big if that checks buffer against checklist[i]
                                                      };//End of for loop that iterates through checklist
+
+          
 
                                                  
                                };
