@@ -14,9 +14,14 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <string.h>
+
 
 using namespace std;
+
+string boldString(string boldThis);
+string sanitizeString(string sanitizeThis);
+string italicString(string italicThis);
+
 
 int main(int argc, char* argv[]){
         //general variables
@@ -36,6 +41,12 @@ int main(int argc, char* argv[]){
     bool start = false;
     bool silent = false;
     bool report = false;
+    string endOfAlertFlag = "***ENDOFALERT***";
+    string silentFlag = "***SILENT***";
+    string reportFlag = "***REPORT***";
+    string startFlag = "***START***";
+
+
     
        //i and o stream
     string buffer;
@@ -72,15 +83,15 @@ int main(int argc, char* argv[]){
         //read in contents of config file
         //Added functionality for configure file settings
         while(configureFile >> configBuff){
-            if(configBuff == "***REPORT***"){
+            if(configBuff == reportFlag){  //***REPORT***
                 report = true;
                 configureFile >> reportFileName;
             }
-            if(configBuff == "***SILENT***"){
+            if(configBuff == silentFlag){ // ***SILENT***
                 silent = true;
                 cout << "Config file is on silent, shhhhhhh...\n";
             };
-            if(configBuff == "***START***"){
+            if(configBuff == startFlag){ //***START***
               start = true;
               configureFile >> configBuff;  
               }
@@ -94,7 +105,7 @@ int main(int argc, char* argv[]){
 
         while(inFile >> buffer){
             if(buffer == "\"amsg\"" || buffer =="\"amsg\","){
-                outFile << "***ENDOFALERT***" << "\n\n";
+                outFile << endOfAlertFlag << "\n\n"; // ***ENDOFALERT***
                 
                 } //In most cases this will seperate alerts, i know there's at least one other option but can't find it
             //I don't like using this value as a flag to seperate alerts,but it seems consistent
@@ -175,23 +186,100 @@ int main(int argc, char* argv[]){
                                                  
                                };
  
-        inFile.close();
+        inFile.close(); // then reuse for 
         outFile.close();
         configureFile.close();
     
-        /*
-             if(report == true){
-            cout << "Generating a report with this file name: " << reportFileName << "\n";
-            reportOutfile.open(reportFileName);
-        }
+        
+    /*So begins the actual Jira Report Generation 
+      -inFile is now what was previously the outfile
+      -every line of text will need to be scrubbed as it goes into it
+      -structures?
+      -Do I need to backtrack and create a bunch of code that grabs these items for storage later?
+      -Or is it more effecient to parse my newly created document, I know what the format will be pretty absolutely
+      */
+
+    if(report == true){
+        cout << "Generating a report with this file name: " << reportFileName << "\n\n";
+        reportOutfile.open(reportFileName);
+        ifstream inFile(argv[2]); //LOOK AT ME, I AM DE INFILE NOW
+
+        string testLine = "This is a test string for testing purposes\n\n\n";
+        //This is going to follow atlassian markdown convention
+
+        reportOutfile << "# _Case_ " << " _PLACETEXTHERE_\n\n";
+        reportOutfile << "# TESTLINE\n";
+
+        testLine = sanitizeString(testLine);
+        testLine = boldString(testLine);
+        reportOutfile << testLine;
+        
+        reportOutfile << "# SUMMARY\n";
+        reportOutfile << "## PLACE SUMMARY TEXT BOX HERE\n\n";
+
+        reportOutfile << "# RECOMMENDATIONS\n";
+        reportOutfile << "\t_PLACE BULLET POINTS HERE\n";
+
+        reportOutfile << "# REQUESTED INFORMATION\n\n";
+        reportOutfile << "\t_PLACE BULLET POINTS HERE\n";
+
+        reportOutfile << "# ALERTS\n\n";
+           
+        //now to turn it into a loop that does this for you based on end tokens
+        reportOutfile << "| Alert Type     |     Time      | Destination IP | Source IP | Description |\n";
+        reportOutfile << "| ---------------|---------------|----------------|-----------|-------------|\n";
+        reportOutfile << "| Monday    im all about words words, see what happens when this stuff is longer great great great but what happens if this nonsense is truly a ridiculous lenght.  I'm talkin mongo bongo ding dilli dong length.  Absolutely tim and tom foolishness in how stupid long this thing gets.    |      Time      | Destination IP | Source IP | Description |\n";
+        reportOutfile << "| Tuesday |     Time      | Destination IP | Source IP | Description |\n";
 
 
-        reportOutfile.close();
-        */
-   
 
+
+    reportOutfile.close();
+    outFile.close();
+
+    }//End of the report generation
 
 
 
     return 0;
+}
+
+///////////////////////////FUNCTIONS//////////////////////////////////////
+
+
+//removes end characters that aren't printable from strings by checking ASCII values
+string sanitizeString(string sanitizeThis){
+    int printableASCII =  33; //printable characters start at 33 in ASCII
+
+    int indexCheck = sanitizeThis.length()-1;
+    char ascii = sanitizeThis[indexCheck];
+    int asciiNum = ascii; //convert character to an ascii number
+   
+    while(asciiNum < printableASCII){
+        //cout << "sanitizeThis last character: " << sanitizeThis[indexCheck] << endl;
+        //cout << "\nASCII value of last character: " << asciiNum << endl;
+        sanitizeThis.erase(sanitizeThis.length()-1);
+       // cout << "Sanitizing...\n";
+        
+        indexCheck = sanitizeThis.length()-1;
+        ascii = sanitizeThis[indexCheck];
+        asciiNum = ascii;
+    }
+    return sanitizeThis;
+}
+
+//Makes the string Markdown Bold
+string boldString(string boldThis){
+    string buffer = "**";
+    buffer+= boldThis;
+    buffer+="**\n";
+    return buffer;
+};
+
+//makes string Markdown Italics
+string italicString(string italicThis){
+    string buffer = "*";
+    buffer+= italicThis;
+    buffer+="*\n";
+    return buffer;
 }

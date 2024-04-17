@@ -17,7 +17,7 @@ Where it's going
 11APR2024
     -Working on fixing the description bug. I will probably just magic code this
         -ended up using getline, which I should have started with. May convert all that logic to getline
-    -delimiter idea noted in config file for future*******
+    -delimiter idea noted in config file for future
 
 12APR2024
     -Initial Push to Github
@@ -36,24 +36,34 @@ Where it's going
         -Sometimes there's one alert ofter that, but that's pretty niche.  For now, I'll just assume it always has that flag
         -Largely failed due to disparities between alerts and desired fields causing disparities between the indices
     -Believe amsg will work as a flag between alerts, so I'm going to press forward and remove it from the to do list
+    -Started on creating ticketOutfile
+
+16APR2024
+    -Created a base format for Jira Out Ticket
+      -Added most of the Markdown functinality to it.  
+    -Added function to sanitize non printable characters (\n) from the end of strings
+    -Added function to add Markdown Bold characters to string
+    -Added function to add Markdown Italic characters to string
 
 Next 50 meter target
-   --Make it spit out a basic format for ticket
-     -no markdown
-     -no field data yet
+   -- Need to gather base fields for the alerts
+      -toying with string matrix
+      -or structure
+      -probably a better way, but the best way, is the one that got done
+
+100M Target
+   --WHY IS THERE NO LIBRARY TO JUST CONVERT UNIX TIME TO READABLE FORMAT
+      -Seriously, why?
+      -Why do I have to recreate this, of all things?
+      -How many people have already solved and resolved this SINCE 1970!?
+   --Do I need to make the output alert table extensible or is that just too many options?
 
 
     /////////NOTES/////////////
-   
-          --Output is pretty consistent so it might be time to start on ticket formation.
-          --Learn that markdown and compile good examples of Jira tickets
        
-           --First make a jira ticket output.
-           --Learn Atlassian Markdown  for output
-
 
            --Auto connect to VirusTotal API? Could be very ambitious
 
            --Need to find a way to spit out top level domain query without reduncies
-             -Meh
+             -Meh, it's not a huge issue at the moment.  M
                 ***Can create a boolean found value, but that can get tricky later, keeping track of it is a pain 
