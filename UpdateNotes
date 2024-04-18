@@ -45,6 +45,15 @@ Where it's going
     -Added function to add Markdown Bold characters to string
     -Added function to add Markdown Italic characters to string
 
+17APR2024
+    -Chasing a sneaky bug somewhere in the if else if logic for pushing tokens AFTER a match is found.
+    -it's pretty tricky, I've run this code hundreds of times and it only shows up now and again, but I can nearly
+        completely recreate it
+    -worked awhile on my own time because it was ...bugging... me. Found and and fixed it.  It had to do with 
+      two things, one i was double loading from my infile in certain instances, and two I never stopped the check
+      loop if it found what it was looking for, resulting in loading in new tokens in the middle of the check cycle
+      under rare circumstances.
+
 Next 50 meter target
    -- Need to gather base fields for the alerts
       -toying with string matrix

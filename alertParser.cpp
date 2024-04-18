@@ -41,10 +41,14 @@ int main(int argc, char* argv[]){
     bool start = false;
     bool silent = false;
     bool report = false;
+    bool reportStart = false; //  should only need to turn on or off, 
+
     string endOfAlertFlag = "***ENDOFALERT***";
     string silentFlag = "***SILENT***";
     string reportFlag = "***REPORT***";
     string startFlag = "***START***";
+    string reportStartFlag = "***REPORTSTART***";
+    string reportEndFlag = "***REPORTEND***";
 
 
     
@@ -58,6 +62,8 @@ int main(int argc, char* argv[]){
 
        //Report related variables
     string reportFileName;
+    vector <string> reportAlertFields; // string matrix for report stuff
+    vector <string> reportAlertValues;
 
 
         //config file error handling
@@ -83,6 +89,8 @@ int main(int argc, char* argv[]){
         //read in contents of config file
         //Added functionality for configure file settings
         while(configureFile >> configBuff){
+
+               //FLAG True False Logic 
             if(configBuff == reportFlag){  //***REPORT***
                 report = true;
                 configureFile >> reportFileName;
@@ -95,6 +103,20 @@ int main(int argc, char* argv[]){
               start = true;
               configureFile >> configBuff;  
               }
+            if(configBuff == reportEndFlag){//***REPORTEND***
+              reportStart = false;
+              configureFile >> configBuff; 
+            }
+            if(configBuff == reportStartFlag){//***REPORTSTART***
+              reportStart = true;
+              configureFile >> configBuff; 
+            }
+
+            //Action Logic
+            if(reportStart == true){
+                reportAlertFields.push_back(configBuff);
+                if(silent == false){cout << "Read in: " << configBuff << " from " << config << " for report alerts." << endl;}
+            }
             if(start == true){
                 checkList.push_back(configBuff);
                 if(silent == false){cout << "Read in: " << configBuff << " from " << config << endl;}
@@ -128,7 +150,7 @@ int main(int argc, char* argv[]){
                     //This didn't work, I believe due to the difference in alerts it was possible to cycle completely through an alert
                         // and still end up with an index value lower than your first hit in the next alert. User could also cause errors.
 
-                    outFile << buffer; // push the matched token
+                    outFile << buffer+" "; // push the matched token field
                     inFile >> buffer; // get our next token
 
 
@@ -139,12 +161,11 @@ int main(int argc, char* argv[]){
                         if(buffer == "["){             // 1)
                             outFile << buffer;
                             getline(inFile, buffer, ']');
-                            outFile << buffer + "]";
-                            inFile >> buffer;
-                            outFile << buffer; // this adds the comma in case I want to csv the file later
-                            inFile >> buffer; 
+                            outFile << buffer + "],";
+                            outFile << "\n";
+                            break;
+                            //inFile >> buffer;
                         }
-
                         //appends getline to buffer until and even amount of forward and backward braces are found.
                         else if(buffer == "{"){     
                             frontBraceCount = 1;
@@ -162,23 +183,33 @@ int main(int argc, char* argv[]){
                                     }
                            } 
                             outFile << buffer; 
-                            inFile >> buffer; 
+                            outFile << "\n";
+                            break;
+                            //inFile >> buffer; 
                         } //end brace logic
 
-                        else if(buffer.back() != ',' ){ // 2) 
+                        else if(buffer.back() != ',' ){ //if not a brace, or a bracket, or have a comma, then push and getline
                             //inFile >> buffer;
                             outFile << buffer;
+                            // cout << "buffer comma before getline: " << buffer << "\n";
                             getline(inFile, buffer);
+                            // cout << "buffer comma AFTER getline: " << buffer << "\n";
                             outFile << buffer;
+                            outFile << "\n";
+                            break;
+
                                                 }
-                        else{                           // 3)
+                        else{                           // then just push it
                             outFile << buffer; 
+                            outFile << "\n";
+                            break;
                         }
 
                         inFile >> buffer; //grab our next token, ready for next iteration
                         outFile << "\n"; // newline character for outfile formatting
 
                                         }; //End of big if that checks buffer against checklist[i]
+
                                                      };//End of for loop that iterates through checklist
 
           
@@ -226,6 +257,10 @@ int main(int argc, char* argv[]){
         reportOutfile << "# ALERTS\n\n";
            
         //now to turn it into a loop that does this for you based on end tokens
+        //a string matrix has the benefit of being more easily extensible to my mind
+        //a structure is more elegant, but all my fields will be strings, except time.
+
+        
         reportOutfile << "| Alert Type     |     Time      | Destination IP | Source IP | Description |\n";
         reportOutfile << "| ---------------|---------------|----------------|-----------|-------------|\n";
         reportOutfile << "| Monday    im all about words words, see what happens when this stuff is longer great great great but what happens if this nonsense is truly a ridiculous lenght.  I'm talkin mongo bongo ding dilli dong length.  Absolutely tim and tom foolishness in how stupid long this thing gets.    |      Time      | Destination IP | Source IP | Description |\n";
@@ -244,7 +279,7 @@ int main(int argc, char* argv[]){
     return 0;
 }
 
-///////////////////////////FUNCTIONS//////////////////////////////////////
+///////////////////////////Function Junction//////////////////////////////////////
 
 
 //removes end characters that aren't printable from strings by checking ASCII values

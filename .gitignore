@@ -4,3 +4,5 @@ inputRawCaseData1.txt
 parserOut.txt
 a.exe
 reportTest.txt
+compareJSON.txt
+parserOutComparison.txt
