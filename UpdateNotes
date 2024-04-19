@@ -49,16 +49,24 @@ Where it's going
     -Chasing a sneaky bug somewhere in the if else if logic for pushing tokens AFTER a match is found.
     -it's pretty tricky, I've run this code hundreds of times and it only shows up now and again, but I can nearly
         completely recreate it
-    -worked awhile on my own time because it was ...bugging... me. Found and and fixed it.  It had to do with 
+    -worked awhile on my own time because it was ...bugging... me. Found and fixed it.  It had to do with 
       two things, one i was double loading from my infile in certain instances, and two I never stopped the check
-      loop if it found what it was looking for, resulting in loading in new tokens in the middle of the check cycle
-      under rare circumstances.
+      loop if it found what it was looking for, resulting in loading in new tokens in the middle of the check cycle.  
+      The new token would get checked against the left over unchecked tokens of the current check cycle.  At the end
+      a new token would get cycled in.  This made the bug extremely difficult to catch, becuase it was possible for
+      the next new token to be found in the leftover check cycle.
+
+18APR2024
+    -In the thick of working on the gathering alert values phase. 
+    -Logic is getting more convoluted and it's broken somewhere.
+    -Left off near line 153, creating logic to make new vectors of structures for each alert.
+    -I don't want to push anything until it works.
 
 Next 50 meter target
    -- Need to gather base fields for the alerts
-      -toying with string matrix
-      -or structure
-      -probably a better way, but the best way, is the one that got done
+      -using string matrix
+       -need to make the logic to feed in values to bottom vector
+      
 
 100M Target
    --WHY IS THERE NO LIBRARY TO JUST CONVERT UNIX TIME TO READABLE FORMAT

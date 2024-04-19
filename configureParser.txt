@@ -37,13 +37,15 @@ PLACE UNUSED FIELDS HERE
 //"srcip_username":
 //"dns_domain":
 
-//"appid_name":
+
 //"xdr_event":
 "outbytes_total":
 "dstip_host":
 "domain_reputation":
-
-
+"tenantid":
+"tags":
+"technique":
+"tactic":
 
 
 
@@ -59,13 +61,8 @@ PLACE UNUSED FIELDS HERE
 "description":
 ***REPORTEND***
 
+"appid_name":
 "tenant_name":
-"tenantid":
-"tactic":
-"tags":
 "detected_values":
-"tags":
-
 "srcport": 
 "dstport":
-"technique":

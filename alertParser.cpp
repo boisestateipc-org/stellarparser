@@ -43,12 +43,6 @@ int main(int argc, char* argv[]){
     bool report = false;
     bool reportStart = false; //  should only need to turn on or off, 
 
-    string endOfAlertFlag = "***ENDOFALERT***";
-    string silentFlag = "***SILENT***";
-    string reportFlag = "***REPORT***";
-    string startFlag = "***START***";
-    string reportStartFlag = "***REPORTSTART***";
-    string reportEndFlag = "***REPORTEND***";
 
 
     
@@ -60,11 +54,25 @@ int main(int argc, char* argv[]){
     ofstream reportOutfile;
    
 
-       //Report related variables
-    string reportFileName;
-    vector <string> reportAlertFields; // string matrix for report stuff
-    vector <string> reportAlertValues;
+       
+       //The goal of this structure is to support "Less-Than-Optimal-User Proofing" the configFile and extensibility. 
+       //These two structures are used in tandem and are arranged like this:
+           //reportHeaderData contains values that will not change - values from configFile
+           //reportValueData is for parsed data from the JSON and will be utilized as a vector with each object being an Alert
 
+    struct reportHeaderData{
+        int reportAlertCount = 0; // this will track how many objects of the reportValueData we have. // Do i actually need this?
+        string reportFileName{};
+        vector <string> reportAlertFields{};
+    };
+
+    struct reportValueData {
+        vector <string> reportAlertValues{};
+    };
+
+    reportHeaderData reportHeader{};
+    vector <reportValueData> reportDataVector{}; //This is potentially fragile, i'm banking on amsg to flag needing new objects
+    reportDataVector.push_back({}); // index 0 of vector of structures that contains vectors. That has to be computationally complex
 
         //config file error handling
         if(configureFile.is_open()){
@@ -89,46 +97,69 @@ int main(int argc, char* argv[]){
         //read in contents of config file
         //Added functionality for configure file settings
         while(configureFile >> configBuff){
-
-               //FLAG True False Logic 
-            if(configBuff == reportFlag){  //***REPORT***
+               // cout << "\n" + configBuff << "  ";
+               //FLAG True False Logic, This could probably be more elegant as a switch case, but it's functionally the same  
+            if(configBuff == "***REPORT***"){  
                 report = true;
-                configureFile >> reportFileName;
+                //cout << "ConfigBuff that tripped reportFlag: " << configBuff << "\n";
+                configureFile >> configBuff;
+                //cout << "configBuff after reading in one token: " << configBuff << "\n";
+                reportHeader.reportFileName = configBuff;
+                //cout << "reportHeader.reportFileName: " << reportHeader.reportFileName << "\n";
+                //continue;
             }
-            if(configBuff == silentFlag){ // ***SILENT***
+            if(configBuff == "***SILENT***"){ 
                 silent = true;
-                cout << "Config file is on silent, shhhhhhh...\n";
+                //cout << "Config file is on silent, shhhhhhh...\n";
+                //continue;
             };
-            if(configBuff == startFlag){ //***START***
+            if(configBuff == "***START***"){ 
               start = true;
-              configureFile >> configBuff;  
+              //cout << "Startflag: " << configBuff << " found\n";
+              //continue;
               }
-            if(configBuff == reportEndFlag){//***REPORTEND***
+            if(configBuff == "***REPORTEND***"){
               reportStart = false;
-              configureFile >> configBuff; 
+              //cout << "reportEndFlag: " << configBuff << " found\n";
+              //cout << "config"
+              //continue;
             }
-            if(configBuff == reportStartFlag){//***REPORTSTART***
+            if(configBuff == "***REPORTSTART***"){
               reportStart = true;
-              configureFile >> configBuff; 
+              //cout << "reportStartFlag: " << configBuff << " found\n"; 
+              //continue;
             }
-
+            
             //Action Logic
             if(reportStart == true){
-                reportAlertFields.push_back(configBuff);
+                reportHeader.reportAlertFields.push_back(configBuff);
+                reportDataVector[0].reportAlertValues.push_back("No Value Found");//primes value vector into first alertValues structure
                 if(silent == false){cout << "Read in: " << configBuff << " from " << config << " for report alerts." << endl;}
+                //cout << "The report if logic, this should flag several times.\n";
             }
             if(start == true){
                 checkList.push_back(configBuff);
                 if(silent == false){cout << "Read in: " << configBuff << " from " << config << endl;}
+                 //cout << "The checklist if logic?\n";
               }
+              //cout << "right after action logic 151\n";
         }
 
         cout << endl; // Just for my sanity
 
+        //cout << "\nLine 143, logic directly before check iterations used:\n";
+
         while(inFile >> buffer){
+
+            //this seperates alerts and creates a new structure for
             if(buffer == "\"amsg\"" || buffer =="\"amsg\","){
-                outFile << endOfAlertFlag << "\n\n"; // ***ENDOFALERT***
-                
+                outFile << "***ENDOFALERT***" << "\n\n"; // ***ENDOFALERT***
+                 //reportDataVector.push_back({});
+                 reportHeader.reportAlertCount++; // we now have one more alert
+                   // for(int i = 0 ; i < size(reportHeader.reportAlertFields); i++){
+                     //   reportDataVector[reportHeader.reportAlertCount].reportAlertValues.push_back("No Value Found");
+                   // }
+
                 } //In most cases this will seperate alerts, i know there's at least one other option but can't find it
             //I don't like using this value as a flag to seperate alerts,but it seems consistent
              
@@ -163,7 +194,7 @@ int main(int argc, char* argv[]){
                             getline(inFile, buffer, ']');
                             outFile << buffer + "],";
                             outFile << "\n";
-                            break;
+                            continue;
                             //inFile >> buffer;
                         }
                         //appends getline to buffer until and even amount of forward and backward braces are found.
@@ -184,7 +215,7 @@ int main(int argc, char* argv[]){
                            } 
                             outFile << buffer; 
                             outFile << "\n";
-                            break;
+                            continue;
                             //inFile >> buffer; 
                         } //end brace logic
 
@@ -196,13 +227,13 @@ int main(int argc, char* argv[]){
                             // cout << "buffer comma AFTER getline: " << buffer << "\n";
                             outFile << buffer;
                             outFile << "\n";
-                            break;
+                            continue;
 
                                                 }
                         else{                           // then just push it
                             outFile << buffer; 
                             outFile << "\n";
-                            break;
+                            continue;
                         }
 
                         inFile >> buffer; //grab our next token, ready for next iteration
@@ -216,7 +247,7 @@ int main(int argc, char* argv[]){
 
                                                  
                                };
- 
+    
         inFile.close(); // then reuse for 
         outFile.close();
         configureFile.close();
@@ -231,8 +262,8 @@ int main(int argc, char* argv[]){
       */
 
     if(report == true){
-        cout << "Generating a report with this file name: " << reportFileName << "\n\n";
-        reportOutfile.open(reportFileName);
+        cout << "Generating a report with this file name: " << reportHeader.reportFileName << "\n\n";
+        reportOutfile.open(reportHeader.reportFileName);
         ifstream inFile(argv[2]); //LOOK AT ME, I AM DE INFILE NOW
 
         string testLine = "This is a test string for testing purposes\n\n\n";
@@ -263,7 +294,7 @@ int main(int argc, char* argv[]){
         
         reportOutfile << "| Alert Type     |     Time      | Destination IP | Source IP | Description |\n";
         reportOutfile << "| ---------------|---------------|----------------|-----------|-------------|\n";
-        reportOutfile << "| Monday    im all about words words, see what happens when this stuff is longer great great great but what happens if this nonsense is truly a ridiculous lenght.  I'm talkin mongo bongo ding dilli dong length.  Absolutely tim and tom foolishness in how stupid long this thing gets.    |      Time      | Destination IP | Source IP | Description |\n";
+        reportOutfile << "|  Alet Type    |      Time      | Destination IP | Source IP | Description |\n";
         reportOutfile << "| Tuesday |     Time      | Destination IP | Source IP | Description |\n";
 
 
@@ -317,4 +348,4 @@ string italicString(string italicThis){
     buffer+= italicThis;
     buffer+="*\n";
     return buffer;
-}
+};
