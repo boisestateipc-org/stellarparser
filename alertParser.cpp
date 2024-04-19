@@ -106,34 +106,36 @@ int main(int argc, char* argv[]){
                 //cout << "configBuff after reading in one token: " << configBuff << "\n";
                 reportHeader.reportFileName = configBuff;
                 //cout << "reportHeader.reportFileName: " << reportHeader.reportFileName << "\n";
-                //continue;
+                continue;
             }
             if(configBuff == "***SILENT***"){ 
                 silent = true;
                 //cout << "Config file is on silent, shhhhhhh...\n";
-                //continue;
+                continue;
             };
             if(configBuff == "***START***"){ 
               start = true;
               //cout << "Startflag: " << configBuff << " found\n";
-              //continue;
+              continue;
               }
             if(configBuff == "***REPORTEND***"){
               reportStart = false;
               //cout << "reportEndFlag: " << configBuff << " found\n";
               //cout << "config"
-              //continue;
+              continue;
             }
             if(configBuff == "***REPORTSTART***"){
               reportStart = true;
               //cout << "reportStartFlag: " << configBuff << " found\n"; 
-              //continue;
+              continue;
             }
             
             //Action Logic
             if(reportStart == true){
                 reportHeader.reportAlertFields.push_back(configBuff);
-                reportDataVector[0].reportAlertValues.push_back("No Value Found");//primes value vector into first alertValues structure
+                //reportDataVector[0].reportAlertValues.push_back("No Value Found");//primes value vector into first alertValues structure
+                  //******READ THIS IF THERE'S ERRORS WITH ALERT FIELDS LATER
+                   //I took off the priming portion because the iteration when 'amsg' is found does it now.
                 if(silent == false){cout << "Read in: " << configBuff << " from " << config << " for report alerts." << endl;}
                 //cout << "The report if logic, this should flag several times.\n";
             }
@@ -149,16 +151,27 @@ int main(int argc, char* argv[]){
 
         //cout << "\nLine 143, logic directly before check iterations used:\n";
 
+       for(int i = 0; i < reportHeader.reportAlertFields.size(); i++){
+           cout << "\n" << reportHeader.reportAlertFields[i];
+        }
+
+        
         while(inFile >> buffer){
 
             //this seperates alerts and creates a new structure for
             if(buffer == "\"amsg\"" || buffer =="\"amsg\","){
                 outFile << "***ENDOFALERT***" << "\n\n"; // ***ENDOFALERT***
-                 //reportDataVector.push_back({});
-                 reportHeader.reportAlertCount++; // we now have one more alert
-                   // for(int i = 0 ; i < size(reportHeader.reportAlertFields); i++){
-                     //   reportDataVector[reportHeader.reportAlertCount].reportAlertValues.push_back("No Value Found");
-                   // }
+                 reportDataVector.push_back({}); //creates first and subsequent instances of structures in vector
+                  reportHeader.reportAlertCount++;// we now have one more alert
+
+                    //cout << "Amount of header fields: (Size of reportHeader.reportFields) " <<  size(reportHeader.reportAlertFields) <<"\n";
+
+                    for(int i = 0 ; i < size(reportHeader.reportAlertFields); i++){
+                        reportDataVector[reportHeader.reportAlertCount].reportAlertValues.push_back("No Value Found");
+                        //cout << "This index: " << i << " at this alert count: " << reportHeader.reportAlertCount << " pushed in this value: " << reportDataVector[reportHeader.reportAlertCount].reportAlertValues[i] << "\n";
+                       }
+
+                      
 
                 } //In most cases this will seperate alerts, i know there's at least one other option but can't find it
             //I don't like using this value as a flag to seperate alerts,but it seems consistent
