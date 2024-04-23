@@ -62,10 +62,16 @@ Where it's going
     -Left off near line 153, creating logic to make new vectors of structures for each alert.
     -I don't want to push anything until it works.
 
+19APR2024
+    -Progressed quite a bit.  I had a quiet syntax error in how I was pushing a new object onto a vector of structures that contains a vector.
+    -Fixed another small bug with keyFields that would have haunted me later
+    
+23APR2024
+    -
+
 Next 50 meter target
-   -- Need to gather base fields for the alerts
-      -using string matrix
-       -need to make the logic to feed in values to bottom vector
+   --Finally at the point of adding the logic to grab tokens to fill the alert values fields of the vector of structures. 
+      -This is where the jira ticket will populate it's alert field values from in the table
       
 
 100M Target

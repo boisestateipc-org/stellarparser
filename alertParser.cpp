@@ -52,7 +52,7 @@ int main(int argc, char* argv[]){
     ifstream inFile(argv[1]); // second arg is inFile
     ofstream outFile(argv[2]); // third arg is outFile
     ofstream reportOutfile;
-   
+    
 
        
        //The goal of this structure is to support "Less-Than-Optimal-User Proofing" the configFile and extensibility. 
@@ -72,7 +72,13 @@ int main(int argc, char* argv[]){
 
     reportHeaderData reportHeader{};
     vector <reportValueData> reportDataVector{}; //This is potentially fragile, i'm banking on amsg to flag needing new objects
+    string reportBuff{}; // this is for report
+    int k = 0; // this is for checking agains the alert fields
+    bool alertFound = false; //might need this, might not
+
     reportDataVector.push_back({}); // index 0 of vector of structures that contains vectors. That has to be computationally complex
+
+
 
         //config file error handling
         if(configureFile.is_open()){
@@ -133,7 +139,7 @@ int main(int argc, char* argv[]){
             //Action Logic
             if(reportStart == true){
                 reportHeader.reportAlertFields.push_back(configBuff);
-                //reportDataVector[0].reportAlertValues.push_back("No Value Found");//primes value vector into first alertValues structure
+                reportDataVector[0].reportAlertValues.push_back(" --------------- ");//primes value vector into first alertValues struct and makes a seperation for the table at index 0
                   //******READ THIS IF THERE'S ERRORS WITH ALERT FIELDS LATER
                    //I took off the priming portion because the iteration when 'amsg' is found does it now.
                 if(silent == false){cout << "Read in: " << configBuff << " from " << config << " for report alerts." << endl;}
@@ -149,50 +155,44 @@ int main(int argc, char* argv[]){
 
         cout << endl; // Just for my sanity
 
-        //cout << "\nLine 143, logic directly before check iterations used:\n";
-
-       for(int i = 0; i < reportHeader.reportAlertFields.size(); i++){
-           cout << "\n" << reportHeader.reportAlertFields[i];
+    //Just prints out Key Fields for Jira ticket if the silent flag is not present    
+    if(silent == false){
+        for(int i = 0; i < reportHeader.reportAlertFields.size(); i++){
+           cout << "\nKey Fields for Jira report: " << reportHeader.reportAlertFields[i];
         }
+    }
+       
 
         
         while(inFile >> buffer){
+            reportBuff = "";
 
             //this seperates alerts and creates a new structure for
             if(buffer == "\"amsg\"" || buffer =="\"amsg\","){
                 outFile << "***ENDOFALERT***" << "\n\n"; // ***ENDOFALERT***
-                 reportDataVector.push_back({}); //creates first and subsequent instances of structures in vector
+
+                 reportDataVector.push_back({}); //creates SECOND and subsequent instances of structures in vector need to fix
                   reportHeader.reportAlertCount++;// we now have one more alert
 
                     //cout << "Amount of header fields: (Size of reportHeader.reportFields) " <<  size(reportHeader.reportAlertFields) <<"\n";
 
-                    for(int i = 0 ; i < size(reportHeader.reportAlertFields); i++){
-                        reportDataVector[reportHeader.reportAlertCount].reportAlertValues.push_back("No Value Found");
-                        //cout << "This index: " << i << " at this alert count: " << reportHeader.reportAlertCount << " pushed in this value: " << reportDataVector[reportHeader.reportAlertCount].reportAlertValues[i] << "\n";
+                    //if there's a report we need default values    
+                    if(report == true){
+                         for(int i = 0 ; i < size(reportHeader.reportAlertFields); i++){
+                            reportDataVector[reportHeader.reportAlertCount].reportAlertValues.push_back("No Value Found");
+                            /*if(silent == false){
+                                cout << "This index: " << i << " at this alert count: " << reportHeader.reportAlertCount-1 << " pushed in this value: " << reportDataVector[reportHeader.reportAlertCount].reportAlertValues[i] << "\n";
+                            } */
+                            
                        }
-
-                      
-
+                    }             
+                 
                 } //In most cases this will seperate alerts, i know there's at least one other option but can't find it
             //I don't like using this value as a flag to seperate alerts,but it seems consistent
-             
-             /* if(lastMatchIndex > currentMatchIndex){
-                outFile << "***ENDOFALERT***" << "\n\n"; // this could be an issue for parsing later
-                lastMatchIndex = -1;
-                //
-            }  
-            */   
-
-
 
             for(int i = 0; i < checkList.size();i++){
                
                 if(buffer == checkList[i]){ //  1) got a match from checklist
-                    //this is where the index checking for alert seperation will go
-                  /*  lastMatchIndex = currentMatchIndex;
-                    currentMatchIndex = i;*/
-                    //This didn't work, I believe due to the difference in alerts it was possible to cycle completely through an alert
-                        // and still end up with an index value lower than your first hit in the next alert. User could also cause errors.
 
                     outFile << buffer+" "; // push the matched token field
                     inFile >> buffer; // get our next token
@@ -274,8 +274,20 @@ int main(int argc, char* argv[]){
       -Or is it more effecient to parse my newly created document, I know what the format will be pretty absolutely
       */
 
+        //cout << "report alert count: " << reportHeader.reportAlertCount;
+       // cout << "report value: " << reportDataVector[0].reportAlertValues[1];
+  
+
+        //Because of how I initialized the vector, the first vector is empty. So this starts at the second
+       
+
+    
+
+
+
     if(report == true){
-        cout << "Generating a report with this file name: " << reportHeader.reportFileName << "\n\n";
+
+        cout << "\nGenerating a report with this file name: " << reportHeader.reportFileName << "\n\n";
         reportOutfile.open(reportHeader.reportFileName);
         ifstream inFile(argv[2]); //LOOK AT ME, I AM DE INFILE NOW
 
@@ -304,11 +316,37 @@ int main(int argc, char* argv[]){
         //a string matrix has the benefit of being more easily extensible to my mind
         //a structure is more elegant, but all my fields will be strings, except time.
 
-        
-        reportOutfile << "| Alert Type     |     Time      | Destination IP | Source IP | Description |\n";
-        reportOutfile << "| ---------------|---------------|----------------|-----------|-------------|\n";
-        reportOutfile << "|  Alet Type    |      Time      | Destination IP | Source IP | Description |\n";
-        reportOutfile << "| Tuesday |     Time      | Destination IP | Source IP | Description |\n";
+    //Alert Table Header generator for output report file
+    
+    reportOutfile << "|  ";
+       //cout << "|  ";
+       for(int i = 0; i < size(reportHeader.reportAlertFields) ; i++){
+
+         //cout << "\n" <<  reportHeader.reportAlertFields[i];
+         reportOutfile <<  reportHeader.reportAlertFields[i] << "  |";
+
+         }
+    reportOutfile << "\n";
+       
+
+
+     //   reportOutfile << "| Alert Type     |     Time      | Destination IP | Source IP | Description |\n";
+       // reportOutfile << "| ---------------|---------------|----------------|-----------|-------------|\n";
+
+    //Fills fields after Alert Header
+        for(int i = 0 ; i <= reportHeader.reportAlertCount; i++){
+                cout << "\n" << "|   "; 
+                reportOutfile << "|   "; 
+             for(int j = 0; j < size(reportHeader.reportAlertFields) ; j++){
+                  cout << " " <<  reportDataVector[i].reportAlertValues[j] << "   |";
+                  reportOutfile << " " <<  reportDataVector[i].reportAlertValues[j] << "   |";
+             }
+             reportOutfile << "\n";
+        }
+   
+       
+       // reportOutfile << "|  Alet Type    |      Time      | Destination IP | Source IP | Description |\n";
+       // reportOutfile << "| Tuesday |     Time      | Destination IP | Source IP | Description |\n";
 
 
 
