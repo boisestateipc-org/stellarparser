@@ -67,7 +67,7 @@ Where it's going
     -Fixed another small bug with keyFields that would have haunted me later
     
 23APR2024
-    -
+    -Added logic at end of program to create alert table and head values from variables parsed from config file
 
 Next 50 meter target
    --Finally at the point of adding the logic to grab tokens to fill the alert values fields of the vector of structures. 
