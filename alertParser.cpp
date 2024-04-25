@@ -14,13 +14,14 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-
+#include <time.h>
 
 using namespace std;
 
 string boldString(string boldThis);
 string sanitizeString(string sanitizeThis);
 string italicString(string italicThis);
+string convertUnix(string unixTime);
 
 
 int main(int argc, char* argv[]){
@@ -64,6 +65,7 @@ int main(int argc, char* argv[]){
         int reportAlertCount = 0; // this will track how many objects of the reportValueData we have. // Do i actually need this?
         string reportFileName{};
         vector <string> reportAlertFields{};
+        string tableFieldSeperator = "|  ";
     };
 
     struct reportValueData {
@@ -139,11 +141,12 @@ int main(int argc, char* argv[]){
             //Action Logic
             if(reportStart == true){
                 reportHeader.reportAlertFields.push_back(configBuff);
-                reportDataVector[0].reportAlertValues.push_back(" --------------- ");//primes value vector into first alertValues struct and makes a seperation for the table at index 0
+                reportHeader.tableFieldSeperator += "---------------  |  ";
+                reportDataVector[0].reportAlertValues.push_back(" No Value Found ");//primes value vector into first alertValues struct and makes a seperation for the table at index 0
                   //******READ THIS IF THERE'S ERRORS WITH ALERT FIELDS LATER
                    //I took off the priming portion because the iteration when 'amsg' is found does it now.
                 if(silent == false){cout << "Read in: " << configBuff << " from " << config << " for report alerts." << endl;}
-                //cout << "The report if logic, this should flag several times.\n";
+               
             }
             if(start == true){
                 checkList.push_back(configBuff);
@@ -161,12 +164,30 @@ int main(int argc, char* argv[]){
            cout << "\nKey Fields for Jira report: " << reportHeader.reportAlertFields[i];
         }
     }
-       
+       int l = 0;
 
         
         while(inFile >> buffer){
             reportBuff = "";
+            k = 0;
+            alertFound = false;
 
+            for(int i = 0; i < size(reportHeader.reportAlertFields);i++){
+                if(buffer == reportHeader.reportAlertFields[i]){
+                    k = i;
+                    alertFound = true;
+                    break;
+                }
+            }
+            /*
+             if(alertFound == true){
+                 cout << "\n report Match: " << buffer << " = " << reportHeader.reportAlertFields[k];
+                 cout << "\n k = " << k << " and i = " << l;
+             }
+            */
+            
+            
+            
             //this seperates alerts and creates a new structure for
             if(buffer == "\"amsg\"" || buffer =="\"amsg\","){
                 outFile << "***ENDOFALERT***" << "\n\n"; // ***ENDOFALERT***
@@ -193,20 +214,38 @@ int main(int argc, char* argv[]){
             for(int i = 0; i < checkList.size();i++){
                
                 if(buffer == checkList[i]){ //  1) got a match from checklist
-
-                    outFile << buffer+" "; // push the matched token field
-                    inFile >> buffer; // get our next token
+                     if(buffer == "\"alert_time\":"){
+                             outFile << buffer+" ";
+                             inFile >> buffer;
+                             buffer = convertUnix(buffer); //Turns it to readable unix time
+                             buffer = sanitizeString(buffer);
+                             buffer +=",";
+                             
+                            }
+                      else{
+                           outFile << buffer+" "; // push the matched token field
+                           inFile >> buffer; // get our next token
+                        }
+                    
 
 
                         //This block of logic first getlines everything to the next bracket if the token is a bracket | a little convoluted because geline grabs up to but not uncluding delim
                           //Or if the token's last character isn't a comma then grab the entire line (better than comma delim)
                           //It doesn't match either of those cases, just append that token to outfile
 
+
                         if(buffer == "["){             // 1)
                             outFile << buffer;
+                           // reportBuff += buffer;
+
                             getline(inFile, buffer, ']');
+                            //reportBuff+=buffer;
                             outFile << buffer + "],";
+                            //reportBuff+="],";
                             outFile << "\n";
+                              // if(alertFound==true){
+                                   // reportDataVector[reportHeader.reportAlertCount].reportAlertValues[k] = reportBuff;
+                               // }
                             continue;
                             //inFile >> buffer;
                         }
@@ -229,23 +268,32 @@ int main(int argc, char* argv[]){
                             outFile << buffer; 
                             outFile << "\n";
                             continue;
-                            //inFile >> buffer; 
                         } //end brace logic
 
                         else if(buffer.back() != ',' ){ //if not a brace, or a bracket, or have a comma, then push and getline
                             //inFile >> buffer;
                             outFile << buffer;
+                            reportBuff += buffer;
                             // cout << "buffer comma before getline: " << buffer << "\n";
                             getline(inFile, buffer);
+                            reportBuff += buffer;
                             // cout << "buffer comma AFTER getline: " << buffer << "\n";
                             outFile << buffer;
                             outFile << "\n";
+                            if(alertFound==true){
+                                   reportDataVector[reportHeader.reportAlertCount].reportAlertValues[k] = reportBuff;
+                                }
                             continue;
 
                                                 }
-                        else{                           // then just push it
+                        else{                // then just push it
+                                                                 
                             outFile << buffer; 
+                            reportBuff = buffer;
                             outFile << "\n";
+                            if(alertFound==true){
+                                   reportDataVector[reportHeader.reportAlertCount].reportAlertValues[k] = reportBuff;
+                               }
                             continue;
                         }
 
@@ -287,22 +335,21 @@ int main(int argc, char* argv[]){
 
     if(report == true){
 
-        cout << "\nGenerating a report with this file name: " << reportHeader.reportFileName << "\n\n";
+        cout << "Generating a report with this file name: " << reportHeader.reportFileName << "\n";
         reportOutfile.open(reportHeader.reportFileName);
         ifstream inFile(argv[2]); //LOOK AT ME, I AM DE INFILE NOW
 
-        string testLine = "This is a test string for testing purposes\n\n\n";
+        //string testLine = "This is a test string for testing purposes\n\n\n";
         //This is going to follow atlassian markdown convention
 
-        reportOutfile << "# _Case_ " << " _PLACETEXTHERE_\n\n";
-        reportOutfile << "# TESTLINE\n";
-
-        testLine = sanitizeString(testLine);
-        testLine = boldString(testLine);
-        reportOutfile << testLine;
+        reportOutfile << "# _Case:_ " << " _PLACETEXTHERE_\n\n";
+        
+        //testLine = sanitizeString(testLine);
+        //testLine = boldString(testLine);
+        //reportOutfile << testLine;
         
         reportOutfile << "# SUMMARY\n";
-        reportOutfile << "## PLACE SUMMARY TEXT BOX HERE\n\n";
+        reportOutfile << "### PLACE SUMMARY HERE\n\n";
 
         reportOutfile << "# RECOMMENDATIONS\n";
         reportOutfile << "\t_PLACE BULLET POINTS HERE\n";
@@ -330,15 +377,16 @@ int main(int argc, char* argv[]){
        
 
 
-     //   reportOutfile << "| Alert Type     |     Time      | Destination IP | Source IP | Description |\n";
-       // reportOutfile << "| ---------------|---------------|----------------|-----------|-------------|\n";
+       // reportOutfile << "| Alert Type     |     Time      | Destination IP | Source IP | Description |\n";
+       reportOutfile << reportHeader.tableFieldSeperator;
+       reportOutfile << "\n";
 
     //Fills fields after Alert Header
-        for(int i = 0 ; i <= reportHeader.reportAlertCount; i++){
-                cout << "\n" << "|   "; 
+        for(int i = 0 ; i < reportHeader.reportAlertCount; i++){
+               // cout << "\n" << "|   "; 
                 reportOutfile << "|   "; 
              for(int j = 0; j < size(reportHeader.reportAlertFields) ; j++){
-                  cout << " " <<  reportDataVector[i].reportAlertValues[j] << "   |";
+                 // cout << " " <<  reportDataVector[i].reportAlertValues[j] << "   |";
                   reportOutfile << " " <<  reportDataVector[i].reportAlertValues[j] << "   |";
              }
              reportOutfile << "\n";
@@ -400,3 +448,19 @@ string italicString(string italicThis){
     buffer+="*\n";
     return buffer;
 };
+
+//Take unix ms time string with comma, cut comma, convert to readable
+  //and return as string
+
+string convertUnix(string convertThis){
+    string timeOut;
+    convertThis.erase(convertThis.length()-1);
+
+    time_t datetime_ms = stoll(convertThis);
+    datetime_ms = datetime_ms/1000;
+
+    convertThis = ctime(&datetime_ms);
+    //convertThis +=",";
+
+    return convertThis;
+}

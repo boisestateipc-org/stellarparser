@@ -3,42 +3,34 @@
     -Don't change this file's name, it's name is supposed to be "configureParser.txt"
     -Place this file in the same folder as the program 
     -Add "***SILENT***" to stop the Read in messages
-    -Add "***REPORT*** youroutputfile.txt" to generate Jira Ticket format --in progress
+    -Add "***REPORT*** youroutputfile.txt" to generate Jira Ticket format --in beta
         -Everything between "***REPORTSTART***" and "***REPORTEND***" will be the alerts it grabs for the table
-        -By default that will be these fields, which should be in every alert.
-          -"display_name": - this will be your Alert Type field later
-          -"alert_time": - for now this will be a stupid number because of how time is measured on computers
-          -"dstip": - if you don't know what this is ask to shadow someone
-          -"srcip":
-          -"description":
-          
+          -IMPORTANT the report alert fields ONLY work with JSON values that are sentences or single values. 
+          -It will not work with arrays or structures as contained in the JSON file
     -values BELOW the "***START***" flag are what the parser looks for.  If it finds that value, both that value and the next
         token are appended to the created outfile.
-    -The only value you currently can NOT search for effectively is the very last key field in your copied json text.  As far as I can tell
+    -The only value you currently can NOT search for effectively is "asmg" and anything below it.As far as I can tell
         this would be an extremely niche use case, so not worth the extra code 
-    -Searching for a key field that is an array (it has values contained in brackets after it) will 
 ****************************************************************************************
 
-PLACE UNUSED FIELDS HERE 
+PLACE UNUSED FIELDS UNDER HERE 
 
-//"signature":
-//"inbytes_total":
-//"srcip_host":
-//"timestamp":
-//"file_name":
-//"file_path":
-//"account_name":
-//"duration":
-//"inpkts_total":
-//"outpkts_total":
-//"domain_list":
-//"detected_fields":
-//"display_name":
-//"srcip_username":
-//"dns_domain":
-
-
-//"xdr_event":
+"signature":
+"inbytes_total":
+"srcip_host":
+"timestamp":
+"file_name":
+"file_path":
+"account_name":
+"duration":
+"inpkts_total":
+"outpkts_total":
+"domain_list":
+"detected_fields":
+"display_name":
+"srcip_username":
+"dns_domain":
+"xdr_event":
 "outbytes_total":
 "dstip_host":
 "domain_reputation":
@@ -47,9 +39,9 @@ PLACE UNUSED FIELDS HERE
 "technique":
 "tactic":
 
+PLACE UNUSED FIELDS ABOVE HERE
 
-
-***REPORT*** reportTest.txt 
+***REPORT*** reportOut.txt 
 ***SILENT***
 ***START***
 

@@ -69,17 +69,15 @@ Where it's going
 23APR2024
     -Added logic at end of program to create alert table and head values from variables parsed from config file
 
-Next 50 meter target
-   --Finally at the point of adding the logic to grab tokens to fill the alert values fields of the vector of structures. 
-      -This is where the jira ticket will populate it's alert field values from in the table
-      
+24APR2024
+    -I think it's there, except for putting in more error handling and better documentation.
+    -Creates 2 output files, the parsed results from the alerts and optionally a markdown Jira Ticket.
+    -After much heartache and possibly some vulgarity discovered time.h and ctime.
 
-100M Target
-   --WHY IS THERE NO LIBRARY TO JUST CONVERT UNIX TIME TO READABLE FORMAT
-      -Seriously, why?
-      -Why do I have to recreate this, of all things?
-      -How many people have already solved and resolved this SINCE 1970!?
-   --Do I need to make the output alert table extensible or is that just too many options?
+Next 50 meter target
+      -Start near line 180, first concantanate all strings into one variable to push to the outfiles so the logic is straight forward
+        -It is functional but this may considerably clean it up
+      
 
 
     /////////NOTES/////////////
