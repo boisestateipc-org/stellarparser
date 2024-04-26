@@ -39,6 +39,9 @@ PLACE UNUSED FIELDS UNDER HERE
 "technique":
 "tactic":
 
+
+
+
 PLACE UNUSED FIELDS ABOVE HERE
 
 ***REPORT*** reportOut.txt 
@@ -47,14 +50,14 @@ PLACE UNUSED FIELDS ABOVE HERE
 
 ***REPORTSTART***
 "display_name":
-"alert_time":
+"timestamp":
 "dstip":
 "srcip":
 "description":
 ***REPORTEND***
 
+"aella_tuples":
 "appid_name":
 "tenant_name":
-"detected_values":
-"srcport": 
-"dstport":
+"detected_values": 
+

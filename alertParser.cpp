@@ -214,7 +214,9 @@ int main(int argc, char* argv[]){
             for(int i = 0; i < checkList.size();i++){
                
                 if(buffer == checkList[i]){ //  1) got a match from checklist
-                     if(buffer == "\"alert_time\":"){
+                     //if(buffer == "\"alert_time\":")
+                     if(buffer.find("time") != string::npos)
+                     {
                              outFile << buffer+" ";
                              inFile >> buffer;
                              buffer = convertUnix(buffer); //Turns it to readable unix time
