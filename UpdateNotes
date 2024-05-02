@@ -74,17 +74,16 @@ Where it's going
     -Creates 2 output files, the parsed results from the alerts and optionally a markdown Jira Ticket.
     -After much heartache and possibly some vulgarity discovered time.h and ctime.
 
+25APR2024
+    -Tuned logic that converts unix time to readable time to apply to any chosen alert field with "time" in it.
+    -Found a bug.
+
+29APR2024
+    - https://cyberdome.us/cases/case-detail/663012f41c8bb361fd5f101d when tactic was in config it spit it out twice
+
+2MAY2024
+    -Updated documentation getting it prepped for the masses
+
 Next 50 meter target
-      -Start near line 180, first concantanate all strings into one variable to push to the outfiles so the logic is straight forward
-        -It is functional but this may considerably clean it up
+   
       
-
-
-    /////////NOTES/////////////
-       
-
-           --Auto connect to VirusTotal API? Could be very ambitious
-
-           --Need to find a way to spit out top level domain query without reduncies
-             -Meh, it's not a huge issue at the moment.  M
-                ***Can create a boolean found value, but that can get tricky later, keeping track of it is a pain 

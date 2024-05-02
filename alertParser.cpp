@@ -1,4 +1,4 @@
-//Goal is to create a text parser to more quickly spit out notes and relevant data fields from stellar
+//Goal is to create a text parser to more quickly spit out notes and relevant data fields from stellar and generate potential Jira report
 
 //Run this code with 2 arguments.  The first is the input text file (assumes path is in same folder), the second is name of output txt file
   //Output file generated every time you run this, so it will overwrite files  of the same name
@@ -44,8 +44,6 @@ int main(int argc, char* argv[]){
     bool report = false;
     bool reportStart = false; //  should only need to turn on or off, 
 
-
-
     
        //i and o stream
     string buffer;
@@ -53,8 +51,8 @@ int main(int argc, char* argv[]){
     ifstream inFile(argv[1]); // second arg is inFile
     ofstream outFile(argv[2]); // third arg is outFile
     ofstream reportOutfile;
+    ifstream inFileReport;
     
-
        
        //The goal of this structure is to support "Less-Than-Optimal-User Proofing" the configFile and extensibility. 
        //These two structures are used in tandem and are arranged like this:
@@ -62,7 +60,7 @@ int main(int argc, char* argv[]){
            //reportValueData is for parsed data from the JSON and will be utilized as a vector with each object being an Alert
 
     struct reportHeaderData{
-        int reportAlertCount = 0; // this will track how many objects of the reportValueData we have. // Do i actually need this?
+        int reportAlertCount = 0; // this will track how many objects of the reportValueData we have. 
         string reportFileName{};
         vector <string> reportAlertFields{};
         string tableFieldSeperator = "|  ";
@@ -73,10 +71,10 @@ int main(int argc, char* argv[]){
     };
 
     reportHeaderData reportHeader{};
-    vector <reportValueData> reportDataVector{}; //This is potentially fragile, i'm banking on amsg to flag needing new objects
-    string reportBuff{}; // this is for report
-    int k = 0; // this is for checking agains the alert fields
-    bool alertFound = false; //might need this, might not
+    vector <reportValueData> reportDataVector{}; //This is potentially fragile, I'm banking on amsg to flag needing new objects
+    string reportBuff{}; // Buffer for report later
+    int k = 0; // For checking against the alert fields
+    bool alertFound = false; 
 
     reportDataVector.push_back({}); // index 0 of vector of structures that contains vectors. That has to be computationally complex
 
@@ -102,39 +100,29 @@ int main(int argc, char* argv[]){
             };
 
 
-        //read in contents of config file
-        //Added functionality for configure file settings
+        //Parse Logic for Config File
+        //Flag Logic for Config File
         while(configureFile >> configBuff){
-               // cout << "\n" + configBuff << "  ";
-               //FLAG True False Logic, This could probably be more elegant as a switch case, but it's functionally the same  
             if(configBuff == "***REPORT***"){  
                 report = true;
-                //cout << "ConfigBuff that tripped reportFlag: " << configBuff << "\n";
                 configureFile >> configBuff;
-                //cout << "configBuff after reading in one token: " << configBuff << "\n";
                 reportHeader.reportFileName = configBuff;
-                //cout << "reportHeader.reportFileName: " << reportHeader.reportFileName << "\n";
                 continue;
             }
             if(configBuff == "***SILENT***"){ 
                 silent = true;
-                //cout << "Config file is on silent, shhhhhhh...\n";
                 continue;
             };
             if(configBuff == "***START***"){ 
               start = true;
-              //cout << "Startflag: " << configBuff << " found\n";
               continue;
               }
             if(configBuff == "***REPORTEND***"){
               reportStart = false;
-              //cout << "reportEndFlag: " << configBuff << " found\n";
-              //cout << "config"
               continue;
             }
             if(configBuff == "***REPORTSTART***"){
               reportStart = true;
-              //cout << "reportStartFlag: " << configBuff << " found\n"; 
               continue;
             }
             
@@ -143,17 +131,16 @@ int main(int argc, char* argv[]){
                 reportHeader.reportAlertFields.push_back(configBuff);
                 reportHeader.tableFieldSeperator += "---------------  |  ";
                 reportDataVector[0].reportAlertValues.push_back(" No Value Found ");//primes value vector into first alertValues struct and makes a seperation for the table at index 0
-                  //******READ THIS IF THERE'S ERRORS WITH ALERT FIELDS LATER
-                   //I took off the priming portion because the iteration when 'amsg' is found does it now.
+
                 if(silent == false){cout << "Read in: " << configBuff << " from " << config << " for report alerts." << endl;}
                
             }
             if(start == true){
                 checkList.push_back(configBuff);
                 if(silent == false){cout << "Read in: " << configBuff << " from " << config << endl;}
-                 //cout << "The checklist if logic?\n";
+                
               }
-              //cout << "right after action logic 151\n";
+            
         }
 
         cout << endl; // Just for my sanity
@@ -166,7 +153,6 @@ int main(int argc, char* argv[]){
     }
        int l = 0;
 
-        
         while(inFile >> buffer){
             reportBuff = "";
             k = 0;
@@ -179,42 +165,29 @@ int main(int argc, char* argv[]){
                     break;
                 }
             }
-            /*
-             if(alertFound == true){
-                 cout << "\n report Match: " << buffer << " = " << reportHeader.reportAlertFields[k];
-                 cout << "\n k = " << k << " and i = " << l;
-             }
-            */
-            
-            
-            
+        
+             
             //this seperates alerts and creates a new structure for
             if(buffer == "\"amsg\"" || buffer =="\"amsg\","){
                 outFile << "***ENDOFALERT***" << "\n\n"; // ***ENDOFALERT***
 
-                 reportDataVector.push_back({}); //creates SECOND and subsequent instances of structures in vector need to fix
-                  reportHeader.reportAlertCount++;// we now have one more alert
-
-                    //cout << "Amount of header fields: (Size of reportHeader.reportFields) " <<  size(reportHeader.reportAlertFields) <<"\n";
+                 reportDataVector.push_back({}); //creates an instance of structure in vector
+                  reportHeader.reportAlertCount++;// Counts number of alerts for use in 
 
                     //if there's a report we need default values    
                     if(report == true){
                          for(int i = 0 ; i < size(reportHeader.reportAlertFields); i++){
-                            reportDataVector[reportHeader.reportAlertCount].reportAlertValues.push_back("No Value Found");
-                            /*if(silent == false){
-                                cout << "This index: " << i << " at this alert count: " << reportHeader.reportAlertCount-1 << " pushed in this value: " << reportDataVector[reportHeader.reportAlertCount].reportAlertValues[i] << "\n";
-                            } */
-                            
+                            reportDataVector[reportHeader.reportAlertCount].reportAlertValues.push_back("No Value Found");  
                        }
                     }             
                  
                 } //In most cases this will seperate alerts, i know there's at least one other option but can't find it
-            //I don't like using this value as a flag to seperate alerts,but it seems consistent
+            //I don't like using this value as a flag to seperate alerts, but it seems consistent and I lack a better solution that
+             //isn't unnecessarily intensive
 
             for(int i = 0; i < checkList.size();i++){
                
                 if(buffer == checkList[i]){ //  1) got a match from checklist
-                     //if(buffer == "\"alert_time\":")
                      if(buffer.find("time") != string::npos)
                      {
                              outFile << buffer+" ";
@@ -231,25 +204,17 @@ int main(int argc, char* argv[]){
                     
 
 
-                        //This block of logic first getlines everything to the next bracket if the token is a bracket | a little convoluted because geline grabs up to but not uncluding delim
+                        //This block of logic first getlines everything to the next bracket if the token is a bracket |
+                        //a little convoluted because geline grabs up to but not uncluding delim
                           //Or if the token's last character isn't a comma then grab the entire line (better than comma delim)
                           //It doesn't match either of those cases, just append that token to outfile
 
-
                         if(buffer == "["){             // 1)
                             outFile << buffer;
-                           // reportBuff += buffer;
-
                             getline(inFile, buffer, ']');
-                            //reportBuff+=buffer;
                             outFile << buffer + "],";
-                            //reportBuff+="],";
                             outFile << "\n";
-                              // if(alertFound==true){
-                                   // reportDataVector[reportHeader.reportAlertCount].reportAlertValues[k] = reportBuff;
-                               // }
-                            continue;
-                            //inFile >> buffer;
+                            continue;                         
                         }
                         //appends getline to buffer until and even amount of forward and backward braces are found.
                         else if(buffer == "{"){     
@@ -311,45 +276,35 @@ int main(int argc, char* argv[]){
                                                  
                                };
     
-        inFile.close(); // then reuse for 
+        inFile.close();  
         outFile.close();
         configureFile.close();
     
         
     /*So begins the actual Jira Report Generation 
       -inFile is now what was previously the outfile
-      -every line of text will need to be scrubbed as it goes into it
-      -structures?
-      -Do I need to backtrack and create a bunch of code that grabs these items for storage later?
-      -Or is it more effecient to parse my newly created document, I know what the format will be pretty absolutely
-      */
-
-        //cout << "report alert count: " << reportHeader.reportAlertCount;
-       // cout << "report value: " << reportDataVector[0].reportAlertValues[1];
+    */
   
+           
 
-        //Because of how I initialized the vector, the first vector is empty. So this starts at the second
-       
-
-    
-
-
+   // ifstream inFileReport(argv[2]); //LOOK AT ME, I AM DE INFILE NOW
 
     if(report == true){
 
-        cout << "Generating a report with this file name: " << reportHeader.reportFileName << "\n";
-        reportOutfile.open(reportHeader.reportFileName);
-        ifstream inFile(argv[2]); //LOOK AT ME, I AM DE INFILE NOW
+    reportOutfile.open(reportHeader.reportFileName);
 
-        //string testLine = "This is a test string for testing purposes\n\n\n";
-        //This is going to follow atlassian markdown convention
+    if (reportOutfile.is_open()) {
+        cout << "Generating a report with this file name: " << reportHeader.reportFileName << "\n\n";
+        }
+    else{
+        cout << "Failure to open report file: " << reportHeader.reportFileName << endl;
+        return 1;
+        };
+
+
 
         reportOutfile << "# _Case:_ " << " _PLACETEXTHERE_\n\n";
-        
-        //testLine = sanitizeString(testLine);
-        //testLine = boldString(testLine);
-        //reportOutfile << testLine;
-        
+          
         reportOutfile << "# SUMMARY\n";
         reportOutfile << "### PLACE SUMMARY HERE\n\n";
 
@@ -361,9 +316,6 @@ int main(int argc, char* argv[]){
 
         reportOutfile << "# ALERTS\n\n";
            
-        //now to turn it into a loop that does this for you based on end tokens
-        //a string matrix has the benefit of being more easily extensible to my mind
-        //a structure is more elegant, but all my fields will be strings, except time.
 
     //Alert Table Header generator for output report file
     
@@ -393,20 +345,13 @@ int main(int argc, char* argv[]){
              }
              reportOutfile << "\n";
         }
-   
-       
-       // reportOutfile << "|  Alet Type    |      Time      | Destination IP | Source IP | Description |\n";
-       // reportOutfile << "| Tuesday |     Time      | Destination IP | Source IP | Description |\n";
-
-
-
-
     reportOutfile.close();
     outFile.close();
 
+
     }//End of the report generation
 
-
+    
 
     return 0;
 }
@@ -423,11 +368,7 @@ string sanitizeString(string sanitizeThis){
     int asciiNum = ascii; //convert character to an ascii number
    
     while(asciiNum < printableASCII){
-        //cout << "sanitizeThis last character: " << sanitizeThis[indexCheck] << endl;
-        //cout << "\nASCII value of last character: " << asciiNum << endl;
         sanitizeThis.erase(sanitizeThis.length()-1);
-       // cout << "Sanitizing...\n";
-        
         indexCheck = sanitizeThis.length()-1;
         ascii = sanitizeThis[indexCheck];
         asciiNum = ascii;
@@ -462,7 +403,6 @@ string convertUnix(string convertThis){
     datetime_ms = datetime_ms/1000;
 
     convertThis = ctime(&datetime_ms);
-    //convertThis +=",";
 
     return convertThis;
 }
