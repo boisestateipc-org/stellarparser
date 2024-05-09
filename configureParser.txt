@@ -17,6 +17,7 @@ Last Updated 2May2024 by Jordan Haines
 
 PLACE UNUSED FIELDS UNDER HERE 
 
+"srcip_geo":
 
 PLACE UNUSED FIELDS ABOVE HERE
 
@@ -25,14 +26,15 @@ PLACE UNUSED FIELDS ABOVE HERE
 ***START***
 
 ***REPORTSTART***
+
 "display_name":
 "timestamp":
 "dstip":
 "srcip":
 "description":
+
 ***REPORTEND***
 
-"srcip_geo":
 "dstport":
 "appid_name":
 "tenant_name":
