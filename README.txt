@@ -1,5 +1,5 @@
 There are many notes scattered throughout this project, this is intended to be the user direction file.
-  -THERE ARE DIRECTION IN THE CONFIG FILE, READ THOSE AS WELL
+  -THERE ARE DIRECTIONS IN THE CONFIG FILE, READ THOSE AS WELL
 
 1. Purpose - Quickly filter relevant fields from alerts and generate a preformatted Jira Ticket for potential escalation.
 
