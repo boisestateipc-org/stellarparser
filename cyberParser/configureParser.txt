@@ -1,0 +1,43 @@
+****************************************************************************************
+   This is your configuration file.
+    -Don't change this file's name, it's name is supposed to be "configureParser.txt"
+    -Place this file in the same folder as the program 
+    -Add "***SILENT***" to stop the Read in messages 
+    -Add "***REPORT*** youroutputfile.txt" to generate Jira Ticket format -- CURRENTLY REQUIRED to be present for program to work
+        -Everything between "***REPORTSTART***" and "***REPORTEND***" will be present in the report file and the alert parser out file.
+          -IMPORTANT the report alert fields ONLY work with values that are sentences or single values. 
+          -It will not work with arrays or structures as contained in the JSON file
+    -Values BELOW the "***START***" flag are what the parser looks for.  If it finds that value, both that value and the next
+        token are appended to the created outfile.
+    -The only value you currently can NOT search for effectively is "asmg" and anything below it.
+          -As far as I can tell this would be an extremely niche use case, so not worth the extra code 
+
+Last Updated 2May2024 by Jordan Haines
+****************************************************************************************
+
+PLACE UNUSED FIELDS UNDER HERE 
+
+"srcip_geo":
+
+PLACE UNUSED FIELDS ABOVE HERE
+
+***REPORT*** reportOut.txt 
+***SILENT***
+***START***
+
+***REPORTSTART***
+
+"display_name":
+"timestamp":
+"dstip":
+"srcip":
+"description":
+
+***REPORTEND***
+
+"dstport":
+"appid_name":
+"tenant_name":
+
+
+
