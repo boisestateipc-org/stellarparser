@@ -12,3 +12,5 @@ unixToHuman.cpp
 reportOut.txt
 configureParser.txt
 branchParser.exe
+cyberparser/
+configure*

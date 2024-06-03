@@ -89,6 +89,10 @@ Where it's going
     -Working on function to long sentences nicer in outFile
       -It's so much uglier somehow
 
+3June2024
+    -Added 3 lines of code that enable it to be run without cmd line arguments, which of course lets it be run from file explorer with defaults.
+        -I just never even thought to ask if it would be easy.
+
 Next 50 meter target
    
       

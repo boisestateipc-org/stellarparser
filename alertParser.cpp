@@ -26,6 +26,11 @@ string convertUnix(string unixTime);
 
 int main(int argc, char* argv[]){
         //general variables
+
+        if(argc <= 1){
+            argv[1] = "inputRawCaseData.txt";
+            argv[2] = "parserOut.txt";
+        }
         int currentMatchIndex{};
         int lastMatchIndex{};
         int frontBraceCount{};

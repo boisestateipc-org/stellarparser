@@ -35,9 +35,12 @@ PLACE UNUSED FIELDS ABOVE HERE
 
 ***REPORTEND***
 
+"srcmac":
+"query":
 "dstport":
 "appid_name":
 "tenant_name":
+"in_bytes_delta":
 
 
 
