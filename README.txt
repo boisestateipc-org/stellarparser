@@ -10,6 +10,7 @@ There are many notes scattered throughout this project, this is intended to be t
     -The output file is create/overwritten when the program is run and doesn't need to be created beforehand
     -The report outfile will be created automatically and overwrite any pre-existing file with the same name
     -Review the directions in the configureParser.txt file
+    -No longer requires command line use.  If double clicked from file explore it runs using defaults.
 
 3. Operation 
     -Navigate to your chosen Stellar Case in the Stellar Cyber Portal
