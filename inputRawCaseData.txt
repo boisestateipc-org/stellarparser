@@ -1,0 +1,669 @@
+{
+	"actual": 3.5,
+	"aella_tuples": "10.204.6.3.10.184.5.60.1433.null",
+	"anomaly_id": "Lo6DQI8BKYDpZrmIWVh9",
+	"anomaly_tag": "spike",
+	"appid_stdport": "yes",
+	"cust_file": 0,
+	"detected_fields": [
+		"ids.signature"
+	],
+	"detected_values": [
+		"SCAN Behavioral Unusual Port 1433 traffic Potential Scan or Infection"
+	],
+	"direction": "EveTxRx",
+	"dscp_name": "Best Effort",
+	"dst_tuples": "null.0.10.184.5.60",
+	"dstip": "10.184.5.60",
+	"dstip_assetid": "fa3e6624-2257-11ee-93cf-8acfb3cbeb5c",
+	"dstip_geo": {
+		"city": "Lewiston",
+		"countryCode": "US",
+		"countryName": "United States",
+		"latitude": 46.3646,
+		"longitude": -116.8609,
+		"region": "Idaho"
+	},
+	"dstip_geo_point": "46.3646,-116.8609",
+	"dstip_host": "almond.lcsc.edu",
+	"dstip_reputation": "Good",
+	"dstip_type": "private",
+	"dstip_version": "ipv4",
+	"dstport": 1433,
+	"end_bucket_time": 1714774500000,
+	"engid": "ad4cb04f13b84adc",
+	"engid_gateway": "74.118.22.223",
+	"engid_name": "LCState-Photon300",
+	"event_category": "killchain",
+	"event_name": "scan_anomalies",
+	"event_score": 23,
+	"event_source": "new_ml",
+	"event_status": "New",
+	"event_type": "reconn",
+	"fidelity": 8.11,
+	"file_extract_timestamp": 1714774290664,
+	"file_name": "",
+	"file_path": "",
+	"fileid": "",
+	"handler": "ids-event",
+	"ids": {
+		"action": "allowed",
+		"category": "Misc activity",
+		"created_ts": "2010-07-30T00:00:00Z",
+		"gid": 1,
+		"metadata": {
+			"created_at": [
+				"2010_07_30"
+			],
+			"former_category": [
+				"SCAN"
+			],
+			"updated_at": [
+				"2017_11_22"
+			]
+		},
+		"payload_details": {
+			"flow": {
+				"bytes_toclient": 0,
+				"bytes_toserver": 132,
+				"pkts_toclient": 0,
+				"pkts_toserver": 2,
+				"start": "2024-05-03T22:11:30.664518+0000"
+			}
+		},
+		"rev": 16,
+		"severity": "low",
+		"signature": "SCAN Behavioral Unusual Port 1433 traffic Potential Scan or Infection",
+		"signature_id": 2001583
+	},
+	"inbytes_total": 0,
+	"inpkts_total": 0,
+	"lateral": true,
+	"locid": "unassigned location",
+	"md5": "",
+	"msg_class": "ids_event",
+	"msg_origin": {
+		"processor": {
+			"type": "maltrace"
+		},
+		"source": "security_sensor"
+	},
+	"msgtype_name": "start",
+	"netid": 0,
+	"netid_name": "vlan0",
+	"new_file": 0,
+	"org_id": "default-organization",
+	"org_name": "default-organization",
+	"orig_id": "Lo6DQI8BKYDpZrmIWVh9",
+	"orig_index": "aella-maltrace-2024.05.03-a3d2f790d48045b9aef3f4ab7fdde8af",
+	"outbytes_total": 132,
+	"outpkts_total": 2,
+	"proto": 6,
+	"proto_name": "tcp",
+	"receive_time": 1714774292346,
+	"score": 30,
+	"severity": 40,
+	"sha256": "",
+	"src_tuples": "null.0.10.204.6.3",
+	"srcip": "10.204.6.3",
+	"srcip_assetid": "b9e22ad4-e87c-11ee-ab70-beffbc6e03cc",
+	"srcip_geo": {
+		"city": "Lewiston",
+		"countryCode": "US",
+		"countryName": "United States",
+		"latitude": 46.3646,
+		"longitude": -116.8609,
+		"region": "Idaho"
+	},
+	"srcip_geo_point": "46.3646,-116.8609",
+	"srcip_host": "10.204.6.3",
+	"srcip_reputation": "Good",
+	"srcip_sig_id": "10.204.6.3.2001583.0",
+	"srcip_type": "private",
+	"srcip_version": "ipv4",
+	"srcport": 54682,
+	"start_bucket_time": 1714774200000,
+	"stellar": {
+		"alert_time": 1714774802762,
+		"anomaly_tag_subtype": "individual_spike",
+		"detection_time": 501784,
+		"status": "New"
+	},
+	"stellar_da_input": 1082,
+	"stellar_index_id": "aella-ser-2024.05.03-a3d2f790d48045b9aef3f4ab7fdde8af",
+	"stellar_uuid": "162a3dcf-d531-45eb-b6fc-88fa37f0c52e1714774802799",
+	"tenant_name": "Lewis-Clark State College",
+	"tenantid": "a3d2f790d48045b9aef3f4ab7fdde8af",
+	"threat_score": 0,
+	"timestamp": 1714774290974,
+	"typical": 1,
+	"vlan": 0,
+	"write_by": "sef",
+	"write_time": 1714774802799,
+	"xdr_event": {
+		"description": "In internal traffic, a large amount (#: 7.0) of scanning behavior with an IDS signature \"SCAN Behavioral Unusual Port 1433 traffic Potential Scan or Infection\" has been observed in a 5.0-minute interval. The accumulated ids.severity of such behavior spiked to (#: 4) from the typical value of (#: 1), with \"critical\" IDS signatures counted as 2, \"high\" counted as 1, \"low\" counted as 0.5, and others counted as 1.",
+		"display_name": "Internal Scanner Behavior Anomaly",
+		"framework_version": "v8",
+		"name": "internal_scan_anomalies",
+		"scope": "Internal",
+		"tactic": {
+			"id": "TA0007",
+			"name": "Discovery"
+		},
+		"tags": [
+			"Internal",
+			"Network Traffic Analysis"
+		],
+		"technique": {
+			"id": "T1046",
+			"name": "Network Service Scanning"
+		},
+		"xdr_killchain_stage": "Exploration",
+		"xdr_killchain_version": "v1"
+	},
+	"_index": "aella-ser-1712448229590-longterm",
+	"isAlert": true,
+	"_id": "1714774802799293a49e5efccbe24971a208b0e16de70022",
+	"_type": "amsg"
+}{
+	"actual": 3.5,
+	"aella_tuples": "10.204.6.3.10.184.5.60.1433.null",
+	"anomaly_id": "Lo6DQI8BKYDpZrmIWVh9",
+	"anomaly_tag": "spike",
+	"appid_stdport": "yes",
+	"cust_file": 0,
+	"detected_fields": [
+		"ids.signature"
+	],
+	"detected_values": [
+		"SCAN Behavioral Unusual Port 1433 traffic Potential Scan or Infection"
+	],
+	"direction": "EveTxRx",
+	"dscp_name": "Best Effort",
+	"dst_tuples": "null.0.10.184.5.60",
+	"dstip": "10.184.5.60",
+	"dstip_assetid": "fa3e6624-2257-11ee-93cf-8acfb3cbeb5c",
+	"dstip_geo": {
+		"city": "Lewiston",
+		"countryCode": "US",
+		"countryName": "United States",
+		"latitude": 46.3646,
+		"longitude": -116.8609,
+		"region": "Idaho"
+	},
+	"dstip_geo_point": "46.3646,-116.8609",
+	"dstip_host": "almond.lcsc.edu",
+	"dstip_reputation": "Good",
+	"dstip_type": "private",
+	"dstip_version": "ipv4",
+	"dstport": 1433,
+	"end_bucket_time": 1714774500000,
+	"engid": "ad4cb04f13b84adc",
+	"engid_gateway": "74.118.22.223",
+	"engid_name": "LCState-Photon300",
+	"event_category": "killchain",
+	"event_name": "scan_anomalies",
+	"event_score": 23,
+	"event_source": "new_ml",
+	"event_status": "New",
+	"event_type": "reconn",
+	"fidelity": 8.11,
+	"file_extract_timestamp": 1714774290664,
+	"file_name": "",
+	"file_path": "",
+	"fileid": "",
+	"handler": "ids-event",
+	"ids": {
+		"action": "allowed",
+		"category": "Misc activity",
+		"created_ts": "2010-07-30T00:00:00Z",
+		"gid": 1,
+		"metadata": {
+			"created_at": [
+				"2010_07_30"
+			],
+			"former_category": [
+				"SCAN"
+			],
+			"updated_at": [
+				"2017_11_22"
+			]
+		},
+		"payload_details": {
+			"flow": {
+				"bytes_toclient": 0,
+				"bytes_toserver": 132,
+				"pkts_toclient": 0,
+				"pkts_toserver": 2,
+				"start": "2024-05-03T22:11:30.664518+0000"
+			}
+		},
+		"rev": 16,
+		"severity": "low",
+		"signature": "SCAN Behavioral Unusual Port 1433 traffic Potential Scan or Infection",
+		"signature_id": 2001583
+	},
+	"inbytes_total": 0,
+	"inpkts_total": 0,
+	"lateral": true,
+	"locid": "unassigned location",
+	"md5": "",
+	"msg_class": "ids_event",
+	"msg_origin": {
+		"processor": {
+			"type": "maltrace"
+		},
+		"source": "security_sensor"
+	},
+	"msgtype_name": "start",
+	"netid": 0,
+	"netid_name": "vlan0",
+	"new_file": 0,
+	"org_id": "default-organization",
+	"org_name": "default-organization",
+	"orig_id": "Lo6DQI8BKYDpZrmIWVh9",
+	"orig_index": "aella-maltrace-2024.05.03-a3d2f790d48045b9aef3f4ab7fdde8af",
+	"outbytes_total": 132,
+	"outpkts_total": 2,
+	"proto": 6,
+	"proto_name": "tcp",
+	"receive_time": 1714774292346,
+	"score": 30,
+	"severity": 40,
+	"sha256": "",
+	"src_tuples": "null.0.10.204.6.3",
+	"srcip": "10.204.6.3",
+	"srcip_assetid": "b9e22ad4-e87c-11ee-ab70-beffbc6e03cc",
+	"srcip_geo": {
+		"city": "Lewiston",
+		"countryCode": "US",
+		"countryName": "United States",
+		"latitude": 46.3646,
+		"longitude": -116.8609,
+		"region": "Idaho"
+	},
+	"srcip_geo_point": "46.3646,-116.8609",
+	"srcip_host": "10.204.6.3",
+	"srcip_reputation": "Good",
+	"srcip_sig_id": "10.204.6.3.2001583.0",
+	"srcip_type": "private",
+	"srcip_version": "ipv4",
+	"srcport": 54682,
+	"start_bucket_time": 1714774200000,
+	"stellar": {
+		"alert_time": 1714774802762,
+		"anomaly_tag_subtype": "individual_spike",
+		"detection_time": 501784,
+		"status": "New"
+	},
+	"stellar_da_input": 1082,
+	"stellar_index_id": "aella-ser-2024.05.03-a3d2f790d48045b9aef3f4ab7fdde8af",
+	"stellar_uuid": "162a3dcf-d531-45eb-b6fc-88fa37f0c52e1714774802799",
+	"tenant_name": "Lewis-Clark State College",
+	"tenantid": "a3d2f790d48045b9aef3f4ab7fdde8af",
+	"threat_score": 0,
+	"timestamp": 1714774290974,
+	"typical": 1,
+	"vlan": 0,
+	"write_by": "sef",
+	"write_time": 1714774802799,
+	"xdr_event": {
+		"description": "In internal traffic, a large amount (#: 7.0) of scanning behavior with an IDS signature \"SCAN Behavioral Unusual Port 1433 traffic Potential Scan or Infection\" has been observed in a 5.0-minute interval. The accumulated ids.severity of such behavior spiked to (#: 4) from the typical value of (#: 1), with \"critical\" IDS signatures counted as 2, \"high\" counted as 1, \"low\" counted as 0.5, and others counted as 1.",
+		"display_name": "Internal Scanner Behavior Anomaly",
+		"framework_version": "v8",
+		"name": "internal_scan_anomalies",
+		"scope": "Internal",
+		"tactic": {
+			"id": "TA0007",
+			"name": "Discovery"
+		},
+		"tags": [
+			"Internal",
+			"Network Traffic Analysis"
+		],
+		"technique": {
+			"id": "T1046",
+			"name": "Network Service Scanning"
+		},
+		"xdr_killchain_stage": "Exploration",
+		"xdr_killchain_version": "v1"
+	},
+	"_index": "aella-ser-1712448229590-longterm",
+	"isAlert": true,
+	"_id": "1714774802799293a49e5efccbe24971a208b0e16de70022",
+	"_type": "amsg"
+}{
+	"actual": 3.5,
+	"aella_tuples": "10.204.6.3.10.184.5.60.1433.null",
+	"anomaly_id": "Lo6DQI8BKYDpZrmIWVh9",
+	"anomaly_tag": "spike",
+	"appid_stdport": "yes",
+	"cust_file": 0,
+	"detected_fields": [
+		"ids.signature"
+	],
+	"detected_values": [
+		"SCAN Behavioral Unusual Port 1433 traffic Potential Scan or Infection"
+	],
+	"direction": "EveTxRx",
+	"dscp_name": "Best Effort",
+	"dst_tuples": "null.0.10.184.5.60",
+	"dstip": "10.184.5.60",
+	"dstip_assetid": "fa3e6624-2257-11ee-93cf-8acfb3cbeb5c",
+	"dstip_geo": {
+		"city": "Lewiston",
+		"countryCode": "US",
+		"countryName": "United States",
+		"latitude": 46.3646,
+		"longitude": -116.8609,
+		"region": "Idaho"
+	},
+	"dstip_geo_point": "46.3646,-116.8609",
+	"dstip_host": "almond.lcsc.edu",
+	"dstip_reputation": "Good",
+	"dstip_type": "private",
+	"dstip_version": "ipv4",
+	"dstport": 1433,
+	"end_bucket_time": 1714774500000,
+	"engid": "ad4cb04f13b84adc",
+	"engid_gateway": "74.118.22.223",
+	"engid_name": "LCState-Photon300",
+	"event_category": "killchain",
+	"event_name": "scan_anomalies",
+	"event_score": 23,
+	"event_source": "new_ml",
+	"event_status": "New",
+	"event_type": "reconn",
+	"fidelity": 8.11,
+	"file_extract_timestamp": 1714774290664,
+	"file_name": "",
+	"file_path": "",
+	"fileid": "",
+	"handler": "ids-event",
+	"ids": {
+		"action": "allowed",
+		"category": "Misc activity",
+		"created_ts": "2010-07-30T00:00:00Z",
+		"gid": 1,
+		"metadata": {
+			"created_at": [
+				"2010_07_30"
+			],
+			"former_category": [
+				"SCAN"
+			],
+			"updated_at": [
+				"2017_11_22"
+			]
+		},
+		"payload_details": {
+			"flow": {
+				"bytes_toclient": 0,
+				"bytes_toserver": 132,
+				"pkts_toclient": 0,
+				"pkts_toserver": 2,
+				"start": "2024-05-03T22:11:30.664518+0000"
+			}
+		},
+		"rev": 16,
+		"severity": "low",
+		"signature": "SCAN Behavioral Unusual Port 1433 traffic Potential Scan or Infection",
+		"signature_id": 2001583
+	},
+	"inbytes_total": 0,
+	"inpkts_total": 0,
+	"lateral": true,
+	"locid": "unassigned location",
+	"md5": "",
+	"msg_class": "ids_event",
+	"msg_origin": {
+		"processor": {
+			"type": "maltrace"
+		},
+		"source": "security_sensor"
+	},
+	"msgtype_name": "start",
+	"netid": 0,
+	"netid_name": "vlan0",
+	"new_file": 0,
+	"org_id": "default-organization",
+	"org_name": "default-organization",
+	"orig_id": "Lo6DQI8BKYDpZrmIWVh9",
+	"orig_index": "aella-maltrace-2024.05.03-a3d2f790d48045b9aef3f4ab7fdde8af",
+	"outbytes_total": 132,
+	"outpkts_total": 2,
+	"proto": 6,
+	"proto_name": "tcp",
+	"receive_time": 1714774292346,
+	"score": 30,
+	"severity": 40,
+	"sha256": "",
+	"src_tuples": "null.0.10.204.6.3",
+	"srcip": "10.204.6.3",
+	"srcip_assetid": "b9e22ad4-e87c-11ee-ab70-beffbc6e03cc",
+	"srcip_geo": {
+		"city": "Lewiston",
+		"countryCode": "US",
+		"countryName": "United States",
+		"latitude": 46.3646,
+		"longitude": -116.8609,
+		"region": "Idaho"
+	},
+	"srcip_geo_point": "46.3646,-116.8609",
+	"srcip_host": "10.204.6.3",
+	"srcip_reputation": "Good",
+	"srcip_sig_id": "10.204.6.3.2001583.0",
+	"srcip_type": "private",
+	"srcip_version": "ipv4",
+	"srcport": 54682,
+	"start_bucket_time": 1714774200000,
+	"stellar": {
+		"alert_time": 1714774802762,
+		"anomaly_tag_subtype": "individual_spike",
+		"detection_time": 501784,
+		"status": "New"
+	},
+	"stellar_da_input": 1082,
+	"stellar_index_id": "aella-ser-2024.05.03-a3d2f790d48045b9aef3f4ab7fdde8af",
+	"stellar_uuid": "162a3dcf-d531-45eb-b6fc-88fa37f0c52e1714774802799",
+	"tenant_name": "Lewis-Clark State College",
+	"tenantid": "a3d2f790d48045b9aef3f4ab7fdde8af",
+	"threat_score": 0,
+	"timestamp": 1714774290974,
+	"typical": 1,
+	"vlan": 0,
+	"write_by": "sef",
+	"write_time": 1714774802799,
+	"xdr_event": {
+		"description": "In internal traffic, a large amount (#: 7.0) of scanning behavior with an IDS signature \"SCAN Behavioral Unusual Port 1433 traffic Potential Scan or Infection\" has been observed in a 5.0-minute interval. The accumulated ids.severity of such behavior spiked to (#: 4) from the typical value of (#: 1), with \"critical\" IDS signatures counted as 2, \"high\" counted as 1, \"low\" counted as 0.5, and others counted as 1.",
+		"display_name": "Internal Scanner Behavior Anomaly",
+		"framework_version": "v8",
+		"name": "internal_scan_anomalies",
+		"scope": "Internal",
+		"tactic": {
+			"id": "TA0007",
+			"name": "Discovery"
+		},
+		"tags": [
+			"Internal",
+			"Network Traffic Analysis"
+		],
+		"technique": {
+			"id": "T1046",
+			"name": "Network Service Scanning"
+		},
+		"xdr_killchain_stage": "Exploration",
+		"xdr_killchain_version": "v1"
+	},
+	"_index": "aella-ser-1712448229590-longterm",
+	"isAlert": true,
+	"_id": "1714774802799293a49e5efccbe24971a208b0e16de70022",
+	"_type": "amsg"
+}{
+	"actual": 3.5,
+	"aella_tuples": "10.204.6.3.10.184.5.60.1433.null",
+	"anomaly_id": "Lo6DQI8BKYDpZrmIWVh9",
+	"anomaly_tag": "spike",
+	"appid_stdport": "yes",
+	"cust_file": 0,
+	"detected_fields": [
+		"ids.signature"
+	],
+	"detected_values": [
+		"SCAN Behavioral Unusual Port 1433 traffic Potential Scan or Infection"
+	],
+	"direction": "EveTxRx",
+	"dscp_name": "Best Effort",
+	"dst_tuples": "null.0.10.184.5.60",
+	"dstip": "10.184.5.60",
+	"dstip_assetid": "fa3e6624-2257-11ee-93cf-8acfb3cbeb5c",
+	"dstip_geo": {
+		"city": "Lewiston",
+		"countryCode": "US",
+		"countryName": "United States",
+		"latitude": 46.3646,
+		"longitude": -116.8609,
+		"region": "Idaho"
+	},
+	"dstip_geo_point": "46.3646,-116.8609",
+	"dstip_host": "almond.lcsc.edu",
+	"dstip_reputation": "Good",
+	"dstip_type": "private",
+	"dstip_version": "ipv4",
+	"dstport": 1433,
+	"end_bucket_time": 1714774500000,
+	"engid": "ad4cb04f13b84adc",
+	"engid_gateway": "74.118.22.223",
+	"engid_name": "LCState-Photon300",
+	"event_category": "killchain",
+	"event_name": "scan_anomalies",
+	"event_score": 23,
+	"event_source": "new_ml",
+	"event_status": "New",
+	"event_type": "reconn",
+	"fidelity": 8.11,
+	"file_extract_timestamp": 1714774290664,
+	"file_name": "",
+	"file_path": "",
+	"fileid": "",
+	"handler": "ids-event",
+	"ids": {
+		"action": "allowed",
+		"category": "Misc activity",
+		"created_ts": "2010-07-30T00:00:00Z",
+		"gid": 1,
+		"metadata": {
+			"created_at": [
+				"2010_07_30"
+			],
+			"former_category": [
+				"SCAN"
+			],
+			"updated_at": [
+				"2017_11_22"
+			]
+		},
+		"payload_details": {
+			"flow": {
+				"bytes_toclient": 0,
+				"bytes_toserver": 132,
+				"pkts_toclient": 0,
+				"pkts_toserver": 2,
+				"start": "2024-05-03T22:11:30.664518+0000"
+			}
+		},
+		"rev": 16,
+		"severity": "low",
+		"signature": "SCAN Behavioral Unusual Port 1433 traffic Potential Scan or Infection",
+		"signature_id": 2001583
+	},
+	"inbytes_total": 0,
+	"inpkts_total": 0,
+	"lateral": true,
+	"locid": "unassigned location",
+	"md5": "",
+	"msg_class": "ids_event",
+	"msg_origin": {
+		"processor": {
+			"type": "maltrace"
+		},
+		"source": "security_sensor"
+	},
+	"msgtype_name": "start",
+	"netid": 0,
+	"netid_name": "vlan0",
+	"new_file": 0,
+	"org_id": "default-organization",
+	"org_name": "default-organization",
+	"orig_id": "Lo6DQI8BKYDpZrmIWVh9",
+	"orig_index": "aella-maltrace-2024.05.03-a3d2f790d48045b9aef3f4ab7fdde8af",
+	"outbytes_total": 132,
+	"outpkts_total": 2,
+	"proto": 6,
+	"proto_name": "tcp",
+	"receive_time": 1714774292346,
+	"score": 30,
+	"severity": 40,
+	"sha256": "",
+	"src_tuples": "null.0.10.204.6.3",
+	"srcip": "10.204.6.3",
+	"srcip_assetid": "b9e22ad4-e87c-11ee-ab70-beffbc6e03cc",
+	"srcip_geo": {
+		"city": "Lewiston",
+		"countryCode": "US",
+		"countryName": "United States",
+		"latitude": 46.3646,
+		"longitude": -116.8609,
+		"region": "Idaho"
+	},
+	"srcip_geo_point": "46.3646,-116.8609",
+	"srcip_host": "10.204.6.3",
+	"srcip_reputation": "Good",
+	"srcip_sig_id": "10.204.6.3.2001583.0",
+	"srcip_type": "private",
+	"srcip_version": "ipv4",
+	"srcport": 54682,
+	"start_bucket_time": 1714774200000,
+	"stellar": {
+		"alert_time": 1714774802762,
+		"anomaly_tag_subtype": "individual_spike",
+		"detection_time": 501784,
+		"status": "New"
+	},
+	"stellar_da_input": 1082,
+	"stellar_index_id": "aella-ser-2024.05.03-a3d2f790d48045b9aef3f4ab7fdde8af",
+	"stellar_uuid": "162a3dcf-d531-45eb-b6fc-88fa37f0c52e1714774802799",
+	"tenant_name": "Lewis-Clark State College",
+	"tenantid": "a3d2f790d48045b9aef3f4ab7fdde8af",
+	"threat_score": 0,
+	"timestamp": 1714774290974,
+	"typical": 1,
+	"vlan": 0,
+	"write_by": "sef",
+	"write_time": 1714774802799,
+	"xdr_event": {
+		"description": "In internal traffic, a large amount (#: 7.0) of scanning behavior with an IDS signature \"SCAN Behavioral Unusual Port 1433 traffic Potential Scan or Infection\" has been observed in a 5.0-minute interval. The accumulated ids.severity of such behavior spiked to (#: 4) from the typical value of (#: 1), with \"critical\" IDS signatures counted as 2, \"high\" counted as 1, \"low\" counted as 0.5, and others counted as 1.",
+		"display_name": "Internal Scanner Behavior Anomaly",
+		"framework_version": "v8",
+		"name": "internal_scan_anomalies",
+		"scope": "Internal",
+		"tactic": {
+			"id": "TA0007",
+			"name": "Discovery"
+		},
+		"tags": [
+			"Internal",
+			"Network Traffic Analysis"
+		],
+		"technique": {
+			"id": "T1046",
+			"name": "Network Service Scanning"
+		},
+		"xdr_killchain_stage": "Exploration",
+		"xdr_killchain_version": "v1"
+	},
+	"_index": "aella-ser-1712448229590-longterm",
+	"isAlert": true,
+	"_id": "1714774802799293a49e5efccbe24971a208b0e16de70022",
+	"_type": "amsg"
+}
